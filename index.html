@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Waffle Chart Generator</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h2 {
+            color: #0055A4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"],
+        button {
+            margin-top: 1rem;
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            background-color: #eee;
+        }
+
+        button {
+            background-color: #0072CE;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0055A4;
+        }
+
+        svg {
+            margin-top: 2rem;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>DW Waffle Chart GeoJSON Generator</h3>
+            <p>Please paste a list of IDs in the text field below.<br>There should be one row for each ID.<br>Each ID will be assigned to a square of the waffle chart.</p>
+            <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..."></textarea>
+            <p>
+                Rows: <input type="number" id="rowsInput" value="5"><br>
+                Columns: <input type="number" id="colsInput" value="5"><br>
+                Fill Direction:
+                <select id="fillDirection">
+                    <option value="ltr">Left to Right</option>
+                    <option value="rtl">Right to Left</option>
+                    <option value="ttb">Top to Bottom</option>
+                    <option value="btt">Bottom to Top</option>
+                </select><br>
+                Fill Order:
+                <select id="fillOrder">
+                    <option value="sideFirst">Sideways First</option>
+                    <option value="downFirst">Down First</option>
+                </select>
+            </p>
+            <button onclick="generateWaffleChart()">Generate Waffle Chart</button>
+            <a id="downloadLink" style="display:none">Download GeoJSON</a>
+            <div id="wafflePreview" style="margin-top:20px;"></div>
+    </div>
+    <script>
+        function generateWaffleChart() {
+            const idsInput = document.getElementById('idsInput').value.trim();
+            const ids = idsInput.split(/\s+/);
+            const rows = parseInt(document.getElementById('rowsInput').value);
+            const cols = parseInt(document.getElementById('colsInput').value);
+            const fillDirection = document.getElementById('fillDirection').value;
+            const fillOrder = document.getElementById('fillOrder').value;
+
+            const grid = [];
+            let index = 0;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    let row = fillOrder === 'sideFirst' ? r : c;
+                    let col = fillOrder === 'sideFirst' ? c : r;
+                    if (fillDirection === 'rtl') col = cols - 1 - col;
+                    if (fillDirection === 'btt') row = rows - 1 - row;
+
+                    if (!grid[row]) grid[row] = [];
+                    grid[row][col] = ids[index] || '';
+                    index++;
+                }
+            }
+
+            const preview = document.getElementById('wafflePreview');
+            preview.innerHTML = '';
+            for (let r = 0; r < rows; r++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.style.display = 'flex';
+                for (let c = 0; c < cols; c++) {
+                    const cell = document.createElement('div');
+                    cell.style.width = '30px';
+                    cell.style.height = '30px';
+                    cell.style.border = '1px solid #000';
+                    cell.style.display = 'flex';
+                    cell.style.alignItems = 'center';
+                    cell.style.justifyContent = 'center';
+                    cell.style.fontSize = '10px';
+                    cell.textContent = grid[r][c];
+                    rowDiv.appendChild(cell);
+                }
+                preview.appendChild(rowDiv);
+            }
+
+            const geojson = {
+                type: "FeatureCollection",
+                features: []
+            };
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const id = grid[r][c];
+                    const feature = {
+                        type: "Feature",
+                        properties: { id: id },
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [[
+                                [c, r],
+                                [c + 1, r],
+                                [c + 1, r + 1],
+                                [c, r + 1],
+                                [c, r]
+                            ]]
+                        }
+                    };
+                    geojson.features.push(feature);
+                }
+            }
+
+            const geojsonBlob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/json' });
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = URL.createObjectURL(geojsonBlob);
+            downloadLink.download = 'waffle_chart.geojson';
+            downloadLink.style.display = 'inline';
+        }
+    </script>
+</body>
+
+</html>
