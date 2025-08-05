@@ -60,18 +60,23 @@
 <body>
     <div class="container">
         <h2>DW Waffle Chart GeoJSON Generator</h3>
-            <p>Please paste a list of IDs in the text field below.<br>There should be one row for each ID.<br>Each ID will be assigned to a square of the waffle chart.</p>
+            <p>Please paste a list of IDs in the text field below.<br>There should be one row for each ID.<br>Each ID
+                will be assigned to a square of the waffle chart.</p>
             <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..."></textarea>
             <p>
-                Rows: <input type="number" id="rowsInput" value="5"><br>
-                Columns: <input type="number" id="colsInput" value="5"><br>
-                Fill Direction:
-                <select id="fillDirection">
+                Rows: <input type="number" id="rowsInput" value="5">Columns: <input type="number" id="colsInput" value="5"><br>
+                <label for="horizontalFill">Horizontal Fill:</label>
+                <select id="horizontalFill">
                     <option value="ltr">Left to Right</option>
                     <option value="rtl">Right to Left</option>
+                </select>
+
+                <label for="verticalFill">Vertical Fill:</label>
+                <select id="verticalFill">
                     <option value="ttb">Top to Bottom</option>
                     <option value="btt">Bottom to Top</option>
-                </select><br>
+                </select>
+                <br>
                 Fill Order:
                 <select id="fillOrder">
                     <option value="sideFirst">Sideways First</option>
@@ -83,12 +88,14 @@
             <div id="wafflePreview" style="margin-top:20px;"></div>
     </div>
     <script>
+        
         function generateWaffleChart() {
             const idsInput = document.getElementById('idsInput').value.trim();
             const ids = idsInput.split(/\s+/);
             const rows = parseInt(document.getElementById('rowsInput').value);
             const cols = parseInt(document.getElementById('colsInput').value);
-            const fillDirection = document.getElementById('fillDirection').value;
+            const horizontalFill = document.getElementById('horizontalFill').value;
+            const verticalFill = document.getElementById('verticalFill').value;
             const fillOrder = document.getElementById('fillOrder').value;
 
             const grid = [];
@@ -98,8 +105,8 @@
                 for (let c = 0; c < cols; c++) {
                     let row = fillOrder === 'sideFirst' ? r : c;
                     let col = fillOrder === 'sideFirst' ? c : r;
-                    if (fillDirection === 'rtl') col = cols - 1 - col;
-                    if (fillDirection === 'btt') row = rows - 1 - row;
+                    if (horizontalFill === 'rtl') col = cols - 1 - col;
+                    if (verticalFill === 'btt') row = rows - 1 - row;
 
                     if (!grid[row]) grid[row] = [];
                     grid[row][col] = ids[index] || '';
