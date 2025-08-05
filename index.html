@@ -64,7 +64,8 @@
                 will be assigned to a square of the waffle chart.</p>
             <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..."></textarea>
             <p>
-                Rows: <input type="number" id="rowsInput" value="5">Columns: <input type="number" id="colsInput" value="5"><br>
+                Rows: <input type="number" id="rowsInput" value="5">Columns: <input type="number" id="colsInput"
+                    value="5"><br>
                 <label for="horizontalFill">Horizontal Fill:</label>
                 <select id="horizontalFill">
                     <option value="ltr">Left to Right</option>
@@ -79,8 +80,8 @@
                 <br>
                 Fill Order:
                 <select id="fillOrder">
-                    <option value="sideFirst">Sideways First</option>
-                    <option value="downFirst">Down First</option>
+                    <option value="rowsFirst">Along rows</option>
+                    <option value="colsFirst">Along columns</option>
                 </select>
             </p>
             <button onclick="generateWaffleChart()">Generate Waffle Chart</button>
@@ -88,7 +89,7 @@
             <div id="wafflePreview" style="margin-top:20px;"></div>
     </div>
     <script>
-        
+
         function generateWaffleChart() {
             const idsInput = document.getElementById('idsInput').value.trim();
             const ids = idsInput.split(/\s+/);
@@ -101,18 +102,30 @@
             const grid = [];
             let index = 0;
 
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    let row = fillOrder === 'sideFirst' ? r : c;
-                    let col = fillOrder === 'sideFirst' ? c : r;
-                    if (horizontalFill === 'rtl') col = cols - 1 - col;
-                    if (verticalFill === 'btt') row = rows - 1 - row;
+            if (fillOrder === 'rowsFirst') {
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let row = verticalFill === 'btt' ? rows - 1 - r : r;
+                        let col = horizontalFill === 'rtl' ? cols - 1 - c : c;
 
-                    if (!grid[row]) grid[row] = [];
-                    grid[row][col] = ids[index] || '';
-                    index++;
+                        if (!grid[row]) grid[row] = [];
+                        grid[row][col] = ids[index] || '';
+                        index++;
+                    }
+                }
+            } else { // downFirst
+                for (let c = 0; c < cols; c++) {
+                    for (let r = 0; r < rows; r++) {
+                        let row = verticalFill === 'btt' ? rows - 1 - r : r;
+                        let col = horizontalFill === 'rtl' ? cols - 1 - c : c;
+
+                        if (!grid[row]) grid[row] = [];
+                        grid[row][col] = ids[index] || '';
+                        index++;
+                    }
                 }
             }
+
 
             const preview = document.getElementById('wafflePreview');
             preview.innerHTML = '';
@@ -142,21 +155,22 @@
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
                     const id = grid[r][c];
+                    const invertedRow = rows - 1 - r; //invert row index for geojson coordinate system
                     const feature = {
                         type: "Feature",
                         properties: { id: id },
                         geometry: {
                             type: "Polygon",
                             coordinates: [[
-                                [c, r],
-                                [c + 1, r],
-                                [c + 1, r + 1],
-                                [c, r + 1],
-                                [c, r]
+                                [c, invertedRow],
+                                [c + 1, invertedRow],
+                                [c + 1, invertedRow + 1],
+                                [c, invertedRow + 1],
+                                [c, invertedRow]
                             ]]
                         }
                     };
-                    geojson.features.push(feature);
+                    if (id !== '') geojson.features.push(feature);
                 }
             }
 
