@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Waffle Chart Generator</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
@@ -54,50 +53,140 @@
             margin-top: 2rem;
             border: 1px solid #ccc;
         }
+
+        /* layout for input controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .control-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .control-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        /* simple modal */
+        #infoModal {
+            display: none; /* hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        #infoContent {
+            background: white;
+            padding: 1.5rem 2.5rem 1.5rem 1.5rem; /* extra right padding for close button */
+            max-width: 400px;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        #infoContent button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>DW Waffle Chart GeoJSON Generator</h3>
+        <h2>DW Waffle Chart GeoJSON Generator
+            <button id="infoBtn" onclick="showInfo()" style="font-size:0.7rem;margin-left:0.5rem;">ℹ️</button>
+        </h2>
+            <!-- description moved to info popup -->
             <p>Please paste a list of IDs in the text field below.<br>There should be one row for each ID.<br>Each ID
                 will be assigned to a square of the waffle chart.</p>
-            <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..."></textarea>
-            <p>
-                Rows: <input type="number" id="rowsInput" value="5">Columns: <input type="number" id="colsInput"
-                    value="5"><br>
-                <label for="horizontalFill">Horizontal Fill:</label>
-                <select id="horizontalFill">
-                    <option value="ltr">Left to Right</option>
-                    <option value="rtl">Right to Left</option>
-                </select>
-
-                <label for="verticalFill">Vertical Fill:</label>
-                <select id="verticalFill">
-                    <option value="ttb">Top to Bottom</option>
-                    <option value="btt">Bottom to Top</option>
-                </select>
+    
+        <!-- modal for information -->
+        <div id="infoModal">
+            <div id="infoContent">
+                <button onclick="closeInfo()">✖</button>
                 <br>
-                Fill Order:
-                <select id="fillOrder">
-                    <option value="rowsFirst">Along rows</option>
-                    <option value="colsFirst">Along columns</option>
-                </select>
-            </p>
+                <p>This little tool produces a grid of square shapes, which will be downloaded as a GeoJSON file.<br>
+                    It’s designed for export to Datawrapper;<br>
+                    once uploaded you can treat the IDs as a data column and assign colors or other attributes to each square.</p>
+                <p><img src="assets/file-Pc79p3FgFC.gif" alt="upload guidance" style="max-width:100%;height:auto;display:block;margin:0.5rem 0;"></p>
+                <p>For further details on uploading a custom GeoJSON map, refer to step 6 of the <a href="https://academy.datawrapper.de/article/145-how-to-upload-your-own-map" target="_blank">Datawrapper guide</a>.</p>
+            </div>
+        </div>
+            <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..." style="width:100%;box-sizing:border-box;"></textarea>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Rows: <input type="number" id="rowsInput" min="1" step="1" value="5"></label>
+                    <label>Columns: <input type="number" id="colsInput" min="1" step="1" value="5"></label>
+                </div>
+                <div class="control-group">
+                    <label for="horizontalFill">Horizontal Fill:</label>
+                    <select id="horizontalFill">
+                        <option value="ltr">Left to Right</option>
+                        <option value="rtl">Right to Left</option>
+                    </select>
+                    <label for="verticalFill">Vertical Fill:</label>
+                    <select id="verticalFill">
+                        <option value="ttb">Top to Bottom</option>
+                        <option value="btt">Bottom to Top</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Fill Order:
+                        <select id="fillOrder">
+                            <option value="rowsFirst">Along rows</option>
+                            <option value="colsFirst">Along columns</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
             <button onclick="generateWaffleChart()">Generate Waffle Chart</button>
             <a id="downloadLink" style="display:none">Download GeoJSON</a>
             <div id="wafflePreview" style="margin-top:20px;"></div>
     </div>
     <script>
 
+        function showInfo() {
+            const modal = document.getElementById('infoModal');
+            modal.style.display = 'flex';
+        }
+
+        function closeInfo() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
         function generateWaffleChart() {
-            const idsInput = document.getElementById('idsInput').value.trim();
-            const ids = idsInput.split(/\s+/);
+            // grab and sanitize the list of IDs (remove empty lines)
+            let ids = document.getElementById('idsInput').value.split(/\n/).map(s => s.trim());
+            ids = ids.filter(s => s !== '');
+
             const rows = parseInt(document.getElementById('rowsInput').value);
             const cols = parseInt(document.getElementById('colsInput').value);
             const horizontalFill = document.getElementById('horizontalFill').value;
             const verticalFill = document.getElementById('verticalFill').value;
             const fillOrder = document.getElementById('fillOrder').value;
+
+            // validate that we have enough cells for the provided IDs
+            const totalCells = rows * cols;
+            if (ids.length > totalCells) {
+                alert(`Too many IDs (${ids.length}) for ${totalCells} cells. Increase rows or columns.`);
+                return;
+            }
 
             const grid = [];
             let index = 0;
