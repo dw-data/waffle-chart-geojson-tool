@@ -1,0 +1,274 @@
+/*
+  dw-input-choice-chips.css
+  DW Choice Chips auf Basis von dw-base.css.
+
+  Grundlagen aus dem Design Portal:
+  - 10px Abstand nach oben und unten
+  - 1 Basefont horizontaler Innenabstand
+  - 5 Interaktionsstadien: default, hover, focus, active, inactive
+
+  Compact bleibt als zusätzliche Ableitung aus dem bisherigen Altstand erhalten.
+*/
+
+.dw-input-choice-chips {
+  --dw-input-choice-chips-gap: 8px;
+  --dw-input-choice-chips-padding-block: 10px;
+  --dw-input-choice-chips-padding-inline: 1rem;
+  --dw-input-choice-chips-border-width: 2px;
+  --dw-input-choice-chips-radius: 1.5rem;
+
+  --dw-input-choice-chips-font-size: var(--dw-font-size-base);
+  --dw-input-choice-chips-font-weight: var(--dw-font-weight-semibold);
+  --dw-input-choice-chips-line-height: 1;
+
+  --dw-input-choice-chips-bg: var(--choice-chips-state-fills-default);
+  --dw-input-choice-chips-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-border-color: var(--choice-chips-state-borders-default);
+
+  --dw-input-choice-chips-hover-bg: var(--choice-chips-state-fills-hover);
+  --dw-input-choice-chips-hover-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-hover-border-color: var(--choice-chips-state-borders-hover);
+
+  --dw-input-choice-chips-focus-bg: var(--choice-chips-state-fills-focus);
+  --dw-input-choice-chips-focus-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-focus-border-color: var(--choice-chips-state-borders-focus);
+
+  --dw-input-choice-chips-active-bg: var(--choice-chips-state-fills-active);
+  --dw-input-choice-chips-active-color: var(--choice-chips-text-active);
+  --dw-input-choice-chips-active-border-color: var(--choice-chips-state-fills-active);
+
+  --dw-input-choice-chips-inactive-bg: var(--choice-chips-state-fills-inactive);
+  --dw-input-choice-chips-inactive-color: var(--choice-chips-text-inactive);
+  --dw-input-choice-chips-inactive-border-color: var(--choice-chips-state-borders-default);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dw-input-choice-chips-gap);
+  width: 100%;
+}
+
+.dw-input-choice-chips__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  padding-block: var(--dw-input-choice-chips-padding-block);
+  padding-inline: var(--dw-input-choice-chips-padding-inline);
+  border: var(--dw-input-choice-chips-border-width) solid var(--dw-input-choice-chips-border-color);
+  border-radius: var(--dw-input-choice-chips-radius);
+  background: var(--dw-input-choice-chips-bg);
+  color: var(--dw-input-choice-chips-color);
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard),
+    border-color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-choice-chips__label {
+  display: block;
+  min-inline-size: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-choice-chips-font-size);
+  font-weight: var(--dw-input-choice-chips-font-weight);
+  line-height: var(--dw-input-choice-chips-line-height);
+  letter-spacing: normal;
+  white-space: nowrap;
+  color: inherit;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-choice-chips__chip:hover,
+  .dw-input-choice-chips__chip.is-hover {
+    background: var(--dw-input-choice-chips-hover-bg);
+    color: var(--dw-input-choice-chips-hover-color);
+    border-color: var(--dw-input-choice-chips-hover-border-color);
+  }
+}
+
+.dw-input-choice-chips__chip:focus-visible,
+.dw-input-choice-chips__chip.is-focus {
+  background: var(--dw-input-choice-chips-focus-bg);
+  color: var(--dw-input-choice-chips-focus-color);
+  border-color: var(--dw-input-choice-chips-focus-border-color);
+  box-shadow: none;
+}
+
+.dw-input-choice-chips__chip.is-active,
+.dw-input-choice-chips__chip[aria-checked="true"] {
+  background: var(--dw-input-choice-chips-active-bg);
+  color: var(--dw-input-choice-chips-active-color);
+  border-color: var(--dw-input-choice-chips-active-border-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-choice-chips__chip.is-active:hover,
+  .dw-input-choice-chips__chip[aria-checked="true"]:hover {
+    background: var(--dw-input-choice-chips-active-bg);
+    color: var(--dw-input-choice-chips-active-color);
+    border-color: var(--dw-input-choice-chips-active-border-color);
+  }
+}
+
+.dw-input-choice-chips__chip.is-inactive,
+.dw-input-choice-chips__chip.is-disabled,
+.dw-input-choice-chips__chip[aria-disabled="true"],
+.dw-input-choice-chips__chip:disabled {
+  background: var(--dw-input-choice-chips-inactive-bg);
+  color: var(--dw-input-choice-chips-inactive-color);
+  border-color: var(--dw-input-choice-chips-inactive-border-color);
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.dw-input-choice-chips--compact {
+  --dw-input-choice-chips-gap: 6px;
+  --dw-input-choice-chips-padding-block: 8px;
+  --dw-input-choice-chips-padding-inline: 12px;
+  --dw-input-choice-chips-font-size: var(--dw-font-size-minus-1);
+}
+
+
+/* ==========================================================================
+   Reparatur-Pass v26
+   Choice Chips lösen ihre Light/Dark-States jetzt direkt aus robusten
+   Semantik-/Roh-Tokens auf, damit sie in auto/light/dark konsistent bleiben.
+   ========================================================================== */
+
+.dw-input-choice-chips {
+  --dw-input-choice-chips-bg: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+  --dw-input-choice-chips-color: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-border-color: var(--colors-special-transparent, transparent);
+
+  --dw-input-choice-chips-hover-bg: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+  --dw-input-choice-chips-hover-color: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-hover-border-color: var(--colors-brand-dw-dark-blue, #002186);
+
+  --dw-input-choice-chips-focus-bg: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+  --dw-input-choice-chips-focus-color: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-focus-border-color: var(--colors-accent-accent-green, #63de9d);
+
+  --dw-input-choice-chips-active-bg: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-active-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-active-border-color: var(--colors-brand-dw-dark-blue, #002186);
+
+  --dw-input-choice-chips-inactive-bg: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+  --dw-input-choice-chips-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-input-choice-chips-inactive-border-color: var(--colors-special-transparent, transparent);
+}
+
+:root[data-dw-theme="dark"] .dw-input-choice-chips {
+  --dw-input-choice-chips-bg: var(--colors-special-transparent, transparent);
+  --dw-input-choice-chips-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-border-color: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+
+  --dw-input-choice-chips-hover-bg: var(--colors-special-transparent, transparent);
+  --dw-input-choice-chips-hover-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-hover-border-color: var(--colors-brand-white, #fff);
+
+  --dw-input-choice-chips-focus-bg: var(--colors-special-transparent, transparent);
+  --dw-input-choice-chips-focus-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-focus-border-color: var(--colors-accent-accent-green, #63de9d);
+
+  --dw-input-choice-chips-active-bg: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-active-color: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-active-border-color: var(--colors-brand-white, #fff);
+
+  --dw-input-choice-chips-inactive-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  --dw-input-choice-chips-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-input-choice-chips-inactive-border-color: var(--colors-bluegrays-blue-grey-04, #5c718a);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-choice-chips,
+  :root[data-dw-theme="auto"] .dw-input-choice-chips {
+    --dw-input-choice-chips-bg: var(--colors-special-transparent, transparent);
+    --dw-input-choice-chips-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-border-color: var(--colors-bluegrays-blue-grey-02, #cde1ee);
+
+    --dw-input-choice-chips-hover-bg: var(--colors-special-transparent, transparent);
+    --dw-input-choice-chips-hover-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-hover-border-color: var(--colors-brand-white, #fff);
+
+    --dw-input-choice-chips-focus-bg: var(--colors-special-transparent, transparent);
+    --dw-input-choice-chips-focus-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-focus-border-color: var(--colors-accent-accent-green, #63de9d);
+
+    --dw-input-choice-chips-active-bg: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-active-color: var(--colors-brand-dw-dark-blue, #002186);
+    --dw-input-choice-chips-active-border-color: var(--colors-brand-white, #fff);
+
+    --dw-input-choice-chips-inactive-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+    --dw-input-choice-chips-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+    --dw-input-choice-chips-inactive-border-color: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  }
+}
+
+
+/* ==========================================================================
+   Reparatur-Pass v27
+   Dark Mode: Choice Chips entsprechen jetzt der visuellen State-Matrix.
+   - default/focus/inactive: blue-grey-04 fill ohne sichtbaren Border
+   - hover: unveränderter Default-Fill mit weißem Text und weißer Outline
+   - active: white fill mit dw-dark-blue Text
+   ========================================================================== */
+
+:root[data-dw-theme="dark"] .dw-input-choice-chips,
+[data-dw-theme="dark"] .dw-input-choice-chips,
+.Value.dark .dw-input-choice-chips {
+  --dw-input-choice-chips-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  --dw-input-choice-chips-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-border-color: var(--colors-special-transparent, transparent);
+
+  --dw-input-choice-chips-hover-bg: var(--dw-input-choice-chips-bg);
+  --dw-input-choice-chips-hover-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-hover-border-color: var(--colors-brand-white, #fff);
+
+  --dw-input-choice-chips-focus-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  --dw-input-choice-chips-focus-color: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-focus-border-color: var(--colors-accent-accent-green, #63de9d);
+
+  --dw-input-choice-chips-active-bg: var(--colors-brand-white, #fff);
+  --dw-input-choice-chips-active-color: var(--colors-brand-dw-dark-blue, #002186);
+  --dw-input-choice-chips-active-border-color: var(--colors-brand-white, #fff);
+
+  --dw-input-choice-chips-inactive-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  --dw-input-choice-chips-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-input-choice-chips-inactive-border-color: var(--colors-special-transparent, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-choice-chips,
+  :root[data-dw-theme="auto"] .dw-input-choice-chips {
+    --dw-input-choice-chips-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+    --dw-input-choice-chips-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-border-color: var(--colors-special-transparent, transparent);
+
+    --dw-input-choice-chips-hover-bg: var(--dw-input-choice-chips-bg);
+    --dw-input-choice-chips-hover-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-hover-border-color: var(--colors-brand-white, #fff);
+
+    --dw-input-choice-chips-focus-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+    --dw-input-choice-chips-focus-color: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-focus-border-color: var(--colors-accent-accent-green, #63de9d);
+
+    --dw-input-choice-chips-active-bg: var(--colors-brand-white, #fff);
+    --dw-input-choice-chips-active-color: var(--colors-brand-dw-dark-blue, #002186);
+    --dw-input-choice-chips-active-border-color: var(--colors-brand-white, #fff);
+
+    --dw-input-choice-chips-inactive-bg: var(--colors-bluegrays-blue-grey-04, #5c718a);
+    --dw-input-choice-chips-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+    --dw-input-choice-chips-inactive-border-color: var(--colors-special-transparent, transparent);
+  }
+}

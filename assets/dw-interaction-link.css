@@ -1,0 +1,195 @@
+/*
+  dw-interaction-link.css
+  DW Interaction Link component.
+
+  Prinzip:
+  - Link, Label und Icon teilen sich ein internes State-Farbtoken.
+  - Inline-SVGs übernehmen ihre Farbe über currentColor.
+  - Legacy-Icon-Modifier verwenden CSS-mask + background-color.
+  - Dark Mode: normale Links, Hover und Focus sind weiß.
+*/
+
+:root,
+[data-dw-theme='light'],
+.light {
+  --dw-interaction-link-color: var(--links-normal, var(--dw-link-color, #002186));
+  --dw-interaction-link-color-hover: var(--links-hover, var(--dw-link-color-hover, #002186));
+  --dw-interaction-link-color-active: var(--links-active, var(--dw-link-color-active, #000821));
+  --dw-interaction-link-color-visited: var(--links-visited, var(--dw-link-color-visited, #5c718a));
+  --dw-interaction-link-color-disabled: var(--links-deactivated, var(--dw-link-color-disabled, #99b5c9));
+  --dw-interaction-link-color-focus: var(--links-focus, var(--dw-link-color, #002186));
+  --dw-interaction-link-focus-ring-color: var(--dw-focus-ring-color, var(--buttons-state-borders-focus, var(--signal-accent-green, #63de9d)));
+
+  --dw-interaction-link-font-family: var(--dw-font-family-text, system-ui, sans-serif);
+  --dw-interaction-link-font-size: var(--dw-type-link-size, 1rem);
+  --dw-interaction-link-font-weight: var(--dw-type-link-weight, var(--dw-font-weight-semibold, 600));
+  --dw-interaction-link-line-height: var(--dw-type-link-line-height, 1.4);
+  --dw-interaction-link-text-decoration-thickness: 0.08em;
+  --dw-interaction-link-text-underline-offset: 0.12em;
+  --dw-interaction-link-icon-size: 1em;
+  --dw-interaction-link-icon-gap: 0.35em;
+  --dw-interaction-link-transition-duration: var(--dw-duration-fast, 120ms);
+  --dw-interaction-link-transition-easing: var(--dw-ease-standard, ease);
+
+  --dw-interaction-link-icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='m13.906 4.292-1.199-1.198L8.5 7.301 4.292 3.094 3.094 4.292 7.301 8.5l-4.207 4.207 1.198 1.199L8.5 9.698l4.207 4.208 1.199-1.199L9.698 8.5l4.208-4.208z'/%3E%3C/svg%3E");
+  --dw-interaction-link-icon-alert: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.5552 16.5L8.27759 0L0 16.5H16.5552ZM9.65719 13.7546C9.68767 14.5165 9.09471 15.1589 8.33278 15.1894C7.57084 15.2199 6.92847 14.6269 6.89799 13.865C6.86752 13.103 7.46048 12.4607 8.22241 12.4302C8.98434 12.3997 9.62671 12.9927 9.65719 13.7546ZM9.31229 11.1472V5.51839H7.24289V11.1472H9.31229Z'/%3E%3C/svg%3E");
+}
+
+[data-dw-theme='dark'],
+.dark {
+  --dw-interaction-link-color: var(--links-normal, #ffffff);
+  --dw-interaction-link-color-hover: var(--links-hover, #ffffff);
+  --dw-interaction-link-color-active: var(--links-active, #e4eff6);
+  --dw-interaction-link-color-visited: var(--links-visited, #99b5c9);
+  --dw-interaction-link-color-disabled: var(--links-deactivated, #5c718a);
+  --dw-interaction-link-color-focus: var(--links-focus, #ffffff);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme='light']),
+  :root[data-dw-theme='auto'] {
+    --dw-interaction-link-color: var(--links-normal, #ffffff);
+    --dw-interaction-link-color-hover: var(--links-hover, #ffffff);
+    --dw-interaction-link-color-active: var(--links-active, #e4eff6);
+    --dw-interaction-link-color-visited: var(--links-visited, #99b5c9);
+    --dw-interaction-link-color-disabled: var(--links-deactivated, #5c718a);
+    --dw-interaction-link-color-focus: var(--links-focus, #ffffff);
+  }
+}
+
+.dw-interaction-link {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color);
+
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--dw-interaction-link-icon-gap);
+  color: var(--dw-interaction-link-state-color);
+  font-family: var(--dw-interaction-link-font-family);
+  font-size: var(--dw-interaction-link-font-size);
+  font-weight: var(--dw-interaction-link-font-weight);
+  line-height: var(--dw-interaction-link-line-height);
+  text-decoration: none;
+  text-decoration-color: var(--dw-interaction-link-state-color);
+  text-decoration-thickness: var(--dw-interaction-link-text-decoration-thickness);
+  text-underline-offset: var(--dw-interaction-link-text-underline-offset);
+  cursor: pointer;
+  transition:
+    color var(--dw-interaction-link-transition-duration) var(--dw-interaction-link-transition-easing),
+    text-decoration-color var(--dw-interaction-link-transition-duration) var(--dw-interaction-link-transition-easing);
+}
+
+.dw-interaction-link:visited,
+.dw-interaction-link.is-visited {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color-visited);
+  color: var(--dw-interaction-link-state-color);
+}
+
+.dw-interaction-link:hover,
+.dw-interaction-link:visited:hover,
+.dw-interaction-link.is-hover {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color-hover);
+  color: var(--dw-interaction-link-state-color);
+  text-decoration-line: underline;
+}
+
+.dw-interaction-link:active,
+.dw-interaction-link:visited:active,
+.dw-interaction-link.is-active {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color-active);
+  color: var(--dw-interaction-link-state-color);
+  text-decoration-line: underline;
+}
+
+.dw-interaction-link:focus {
+  outline: none;
+}
+
+.dw-interaction-link:focus-visible,
+.dw-interaction-link.is-focus {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color-focus);
+  color: var(--dw-interaction-link-state-color);
+  outline: 2px solid var(--dw-interaction-link-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.dw-interaction-link.is-disabled,
+.dw-interaction-link.is-inactive,
+.dw-interaction-link[aria-disabled='true'] {
+  --dw-interaction-link-state-color: var(--dw-interaction-link-color-disabled);
+  color: var(--dw-interaction-link-state-color);
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+
+.dw-interaction-link__icon {
+  inline-size: var(--dw-interaction-link-icon-size);
+  block-size: var(--dw-interaction-link-icon-size);
+  flex: 0 0 auto;
+  color: var(--dw-interaction-link-state-color);
+  fill: currentColor;
+  transform: translateY(0.1em);
+}
+
+.dw-interaction-link__icon :where(svg, path, rect, circle, ellipse, polygon, polyline, line, use),
+.dw-interaction-link__icon:where(svg, path, rect, circle, ellipse, polygon, polyline, line, use) {
+  color: currentColor;
+  fill: currentColor !important;
+}
+
+.dw-interaction-link__icon [stroke]:not([stroke='none']) {
+  stroke: currentColor !important;
+}
+
+.dw-interaction-link__icon [fill='none'],
+.dw-interaction-link__icon [style*='fill:none'],
+.dw-interaction-link__icon [style*='fill: none'] {
+  fill: none !important;
+}
+
+.dw-interaction-link__icon [stroke='none'],
+.dw-interaction-link__icon [style*='stroke:none'],
+.dw-interaction-link__icon [style*='stroke: none'] {
+  stroke: none !important;
+}
+
+.dw-interaction-link__label {
+  min-width: 0;
+}
+
+.dw-interaction-link--icon-start,
+.dw-interaction-link--icon-end {
+  flex-direction: row;
+}
+
+.dw-interaction-link--close::after,
+.dw-interaction-link--alert::before {
+  content: '';
+  display: inline-block;
+  inline-size: var(--dw-interaction-link-icon-size);
+  block-size: var(--dw-interaction-link-icon-size);
+  flex: 0 0 auto;
+  background-color: var(--dw-interaction-link-state-color);
+  transform: translateY(0.12em);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.dw-interaction-link--close::after {
+  -webkit-mask-image: var(--dw-interaction-link-icon-close);
+  mask-image: var(--dw-interaction-link-icon-close);
+}
+
+.dw-interaction-link--alert::before {
+  -webkit-mask-image: var(--dw-interaction-link-icon-alert);
+  mask-image: var(--dw-interaction-link-icon-alert);
+}
+
+.dw-interaction-link--close,
+.dw-interaction-link--alert {
+  padding-inline: 0;
+}

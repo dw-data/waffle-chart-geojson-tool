@@ -1,0 +1,279 @@
+/*
+  dw-input-dropdown.css
+  DW Dropdown auf Basis von dw-base.css.
+
+  Orientierung am Design-Portal:
+  - Tastatureingabe wird unterstützt
+  - Auswahl aus Liste
+  - Anatomie: Label, Input Feld, Icon
+  - Feldbreite auf kleinen Viewports volle Breite
+  - Ab LG kann eine 2-spaltige Formdarstellung genutzt werden
+  - Innenabstand links/rechts: 1 Basefont
+*/
+
+.dw-input-dropdown-grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 64rem) {
+  .dw-input-dropdown-grid--two-col {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.dw-input-dropdown {
+  --dw-input-dropdown-padding-inline: 1rem;
+  --dw-input-dropdown-padding-block: 10px;
+  --dw-input-dropdown-icon-width: 17px;
+  --dw-input-dropdown-icon-height: 8px;
+  --dw-input-dropdown-icon-offset: 1rem;
+  --dw-input-dropdown-min-height: 40px;
+  --dw-input-dropdown-border-width: 1px;
+  --dw-input-dropdown-radius: 0;
+
+  --dw-input-dropdown-bg: var(--greys-white, #fff);
+  --dw-input-dropdown-border: var(--input-state-borders-default-1);
+  --dw-input-dropdown-hover-border: var(--input-state-borders-input-hover);
+  --dw-input-dropdown-focus-border: var(--input-state-borders-active);
+  --dw-input-dropdown-focus-ring: var(--input-state-borders-focus);
+  --dw-input-dropdown-error-border: var(--input-state-borders-error);
+  --dw-input-dropdown-inactive-border: var(--input-state-borders-inactive);
+  --dw-input-dropdown-inactive-bg: var(--input-state-fills-inactive, var(--backgrounds-bg-2, #f0f6fa));
+
+  --dw-input-dropdown-text: var(--font-colors-input-input-text);
+  --dw-input-dropdown-placeholder: var(--font-colors-input-placeholder);
+  --dw-input-dropdown-label: var(--font-colors-info-form-label-info);
+  --dw-input-dropdown-help: var(--font-colors-info-help-info);
+  --dw-input-dropdown-error: var(--font-colors-info-error-info);
+
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+[data-dw-theme="dark"] .dw-input-dropdown {
+  --dw-input-dropdown-bg: var(--backgrounds-bg-1);
+}
+
+.dw-input-dropdown__label {
+  margin: 0;
+  color: var(--dw-input-dropdown-label);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: 1.1;
+  font-weight: var(--dw-font-weight-medium);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-dropdown__field {
+  position: relative;
+  width: 100%;
+}
+
+.dw-input-dropdown__control {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: var(--dw-input-dropdown-min-height);
+  padding-block: var(--dw-input-dropdown-padding-block);
+  padding-inline: var(--dw-input-dropdown-padding-inline);
+  padding-right: calc(var(--dw-input-dropdown-icon-offset) + var(--dw-input-dropdown-icon-width) + var(--dw-input-dropdown-padding-inline));
+  border: var(--dw-input-dropdown-border-width) solid var(--dw-input-dropdown-border);
+  border-radius: var(--dw-input-dropdown-radius);
+  background-color: var(--dw-input-dropdown-bg);
+  color: var(--dw-input-dropdown-text);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: 1.1;
+  font-weight: var(--dw-font-weight-regular);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+  outline: none;
+  box-shadow: none;
+  transition:
+    border-color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard),
+    background-color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-dropdown__control:invalid {
+  color: var(--dw-input-dropdown-placeholder);
+}
+
+.dw-input-dropdown__icon {
+  position: absolute;
+  top: 50%;
+  right: var(--dw-input-dropdown-icon-offset);
+  width: var(--dw-input-dropdown-icon-width);
+  height: var(--dw-input-dropdown-icon-height);
+  transform: translateY(-50%);
+  pointer-events: none;
+  background-color: currentColor;
+  color: var(--dw-input-dropdown-text);
+  -webkit-mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2217%22%20height%3D%228%22%20viewBox%3D%220%200%2017%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M16.3584%201.23926L8.17969%207.37109L0%201.23926L0.929688%200L8.17969%205.44043L15.4287%200L16.3584%201.23926Z%22%20fill%3D%22%23002186%22/%3E%0A%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2217%22%20height%3D%228%22%20viewBox%3D%220%200%2017%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M16.3584%201.23926L8.17969%207.37109L0%201.23926L0.929688%200L8.17969%205.44043L15.4287%200L16.3584%201.23926Z%22%20fill%3D%22%23002186%22/%3E%0A%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-dropdown__field:hover .dw-input-dropdown__control,
+  .dw-input-dropdown.is-hover .dw-input-dropdown__control {
+    border-color: var(--dw-input-dropdown-hover-border);
+  }
+}
+
+.dw-input-dropdown__control:focus-visible,
+.dw-input-dropdown.is-focus .dw-input-dropdown__control {
+  border-color: var(--dw-input-dropdown-focus-border);
+  box-shadow: 0 0 0 2px var(--dw-input-dropdown-focus-ring);
+}
+
+.dw-input-dropdown.is-error .dw-input-dropdown__control {
+  border-color: var(--dw-input-dropdown-error-border);
+}
+
+.dw-input-dropdown.is-inactive .dw-input-dropdown__control {
+  background-color: var(--dw-input-dropdown-inactive-bg);
+  border-color: var(--dw-input-dropdown-inactive-border);
+  color: var(--fonts-prio-4);
+  pointer-events: none;
+}
+
+.dw-input-dropdown.is-inactive .dw-input-dropdown__icon {
+  color: var(--fonts-prio-4);
+}
+
+.dw-input-dropdown__help,
+.dw-input-dropdown__error {
+  margin: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-minus-1);
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+
+.dw-input-dropdown__help {
+  color: var(--dw-input-dropdown-help);
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+.dw-input-dropdown__error {
+  display: none;
+  color: var(--dw-input-dropdown-error);
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+.dw-input-dropdown.is-error .dw-input-dropdown__error,
+.dw-input-dropdown__error.is-visible {
+  display: block;
+}
+
+
+/* ==========================================================================
+   Automatischer Dark-Mode über prefers-color-scheme
+   ========================================================================== */
+
+:root[data-dw-theme="dark"] .dw-input-dropdown {
+  --dw-input-dropdown-bg: var(--backgrounds-bg-1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-dropdown,
+  :root[data-dw-theme="auto"] .dw-input-dropdown {
+    --dw-input-dropdown-bg: var(--backgrounds-bg-1);
+  }
+}
+
+
+/* ==========================================================================
+   Reparatur-Pass v26
+   Dropdown-Typografie explizit auch auf Select-Optionen.
+   ========================================================================== */
+
+.dw-input-dropdown__control,
+.dw-input-dropdown__control option,
+.dw-input-dropdown__control optgroup {
+  font-family: var(--dw-font-family-text, "Pangea", Arial, sans-serif);
+  font-size: var(--dw-font-size-base);
+  font-weight: var(--dw-font-weight-regular);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-dropdown__control option,
+.dw-input-dropdown__control optgroup {
+  color: var(--font-colors-input-input-text);
+}
+
+
+
+/* ==========================================================================
+   Referenzstand v28
+   Typografie der offenen Dropdown-Liste wie im funktionierenden Altstand.
+   ========================================================================== */
+
+.dw-input-dropdown__control option,
+.dw-input-dropdown__control optgroup {
+  font: inherit;
+  font-family: var(--dw-font-family-text) !important;
+  font-size: var(--dw-font-size-base);
+  font-weight: var(--dw-font-weight-regular);
+  line-height: 1.1;
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+  font-synthesis: none;
+  color: var(--font-colors-input-input-text);
+}
+
+
+/* ==========================================================================
+   Referenzstand v29
+   Font-Load-Fix:
+   expliziter Stack mit "DW Pangea" und "Pangea"
+   auf Feld sowie offener Liste.
+   ========================================================================== */
+
+.dw-input-dropdown__control {
+  font-family: var(--dw-font-family-var-text, var(--dw-font-family-text)) !important;
+}
+
+.dw-input-dropdown__control option,
+.dw-input-dropdown__control optgroup {
+  font: inherit;
+  font-family: var(--dw-font-family-var-text, var(--dw-font-family-text)) !important;
+  font-size: var(--dw-font-size-base);
+  font-weight: var(--dw-font-weight-regular);
+  line-height: 1.1;
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+  font-synthesis: none;
+  color: var(--font-colors-input-input-text);
+}
+
+
+/* ==========================================================================
+   DW repair pass: error border and variable italic
+   ========================================================================== */
+
+.dw-input-dropdown.is-error .dw-input-dropdown__control {
+  border-width: 2px;
+  border-color: var(--dw-input-dropdown-error-border);
+}
+
+.dw-input-dropdown__error {
+  font-family: var(--dw-font-family-var-text, var(--dw-font-family-text));
+  font-style: normal;
+  font-synthesis: none;
+  font-variation-settings: "ital" 1, "opsz" 10;
+}

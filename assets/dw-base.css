@@ -1,0 +1,1500 @@
+/*
+  dw-base.css
+  Kanonische DW-Foundation.
+
+  Enthält:
+  - Roh-Tokens
+  - Theme-/Semantik-Tokens
+  - Typografie, Raster, Abstände, Helfer
+  - integrierte Farb- und State-Tokens aus der bisherigen colors.css
+
+  Komponenten bleiben bewusst separat.
+*/
+
+/*
+  dw-base.css
+  Reine DW-Basis für finale Design-Tokens, Theming, Typografie, Raster
+  und generische Helfer. Keine komponentenspezifischen Styles.
+*/
+
+@import url('https://static.dw.com/display/fonts/pangea/100/var/font.css');
+
+:root {
+  /* -------------------------------------------------------------------------- */
+  /* Finale Roh-Tokens                                                          */
+  /* -------------------------------------------------------------------------- */
+  --primary-dw-light-blue: #05b2fc;
+  --primary-dw-dark-blue: #002186;
+  --primary-dw-yellow: #fae000;
+
+  --signal-accent-green: #63de9d;
+  --signal-accent-red: #ef6c6c;
+  --signal-breaking-red: #be232d;
+
+  --greys-white: #fff;
+  --greys-blue-grey-1: #f0f6fa;
+  --greys-blue-grey-2: #cde1ee;
+  --greys-blue-grey-3: #99b5c9;
+  --greys-blue-grey-4: #5c718a;
+
+  --greys-dark-blue-grey-1: #081336;
+  --greys-dark-blue-grey-2: #000821;
+
+  --greys-warm-grey-1: #f4f2f2;
+  --greys-warm-grey-2: #e0dfde;
+  --greys-warm-grey-3: #cfccca;
+
+  --special-transparent: rgba(255, 255, 255, 0);
+  --special-darkbluegray-2-45: rgba(0, 8, 33, 0.45);
+  --special-blue-exception: #20c3f9;
+
+  /* -------------------------------------------------------------------------- */
+  /* Alias-Layer für die finalen Semantik-Namen                                */
+  /* -------------------------------------------------------------------------- */
+  --colors-brand-dw-light-blue: var(--primary-dw-light-blue);
+  --colors-brand-dw-dark-blue: var(--primary-dw-dark-blue);
+  --colors-brand-dw-yellow: var(--primary-dw-yellow);
+  --colors-brand-white: var(--greys-white);
+
+  --colors-accent-accent-green: var(--signal-accent-green);
+  --colors-accent-accent-red: var(--signal-accent-red);
+  --colors-accent-breaking: var(--signal-breaking-red);
+
+  --colors-bluegrays-blue-grey-01: var(--greys-blue-grey-1);
+  --colors-bluegrays-blue-grey-02: var(--greys-blue-grey-2);
+  --colors-bluegrays-blue-grey-03: var(--greys-blue-grey-3);
+  --colors-bluegrays-blue-grey-04: var(--greys-blue-grey-4);
+  --colors-bluegrays-dark-blue-grey-01: var(--greys-dark-blue-grey-1);
+  --colors-bluegrays-dark-blue-grey-02: var(--greys-dark-blue-grey-2);
+
+  --colors-warmgrays-warm-grey-01: var(--greys-warm-grey-1);
+  --colors-warmgrays-warm-grey-02: var(--greys-warm-grey-2);
+  --colors-warmgrays-warm-grey-03: var(--greys-warm-grey-3);
+
+  --colors-special-transparent: var(--special-transparent);
+  --colors-special-darkbluegray-2-45: var(--special-darkbluegray-2-45);
+  --colors-special-blue-exception: var(--special-blue-exception);
+
+  /* -------------------------------------------------------------------------- */
+  /* Typografie                                                                 */
+  /* -------------------------------------------------------------------------- */
+  --dw-font-family: 'DW Pangea', 'Pangea', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --dw-font-family-text: 'DW Pangea', 'Pangea', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+
+  --dw-font-weight-regular: 400;
+  --dw-font-weight-medium: 500;
+  --dw-font-weight-semibold: 600;
+  --dw-font-weight-bold: 700;
+
+  --dw-basefont-min: 15px;
+  --dw-basefont-max: 20px;
+
+  --dw-font-size-minus-1: calc(1rem / 1.2);
+  --dw-font-size-base: 1rem;
+  --dw-font-size-plus-1: calc(1rem * 1.2);
+  --dw-font-size-plus-2: calc(1rem * 1.44);
+  --dw-font-size-plus-3: calc(1rem * 1.728);
+  --dw-font-size-plus-4: calc(1rem * 2.0736);
+  --dw-font-size-plus-5: calc(1rem * 2.48832);
+  --dw-font-size-plus-6: calc(1rem * 2.985984);
+
+  --dw-line-height-tight: 1.1;
+  --dw-line-height-copy: 1.4;
+
+  --dw-letter-spacing-caps: 0.0875em;
+
+  /* -------------------------------------------------------------------------- */
+  /* Raster, Spacing, Größen                                                    */
+  /* -------------------------------------------------------------------------- */
+  --dw-grid-columns: 30;
+  --dw-grid-gap: 0px;
+  --dw-layout-max-width: 1440px;
+  --dw-page-padding-inline: 0px;
+
+  --dw-space-0-5: 0.5rem;
+  --dw-space-1: 1rem;
+  --dw-space-2: 2rem;
+  --dw-space-3: 3rem;
+  --dw-space-4: 4rem;
+
+  --dw-radius-none: 0;
+  --dw-radius-button: 5px;
+
+  /* -------------------------------------------------------------------------- */
+  /* Motion und Layer                                                           */
+  /* -------------------------------------------------------------------------- */
+  --dw-duration-fast: 120ms;
+  --dw-duration-base: 180ms;
+  --dw-ease-standard: ease;
+
+  --dw-z-base: 1;
+  --dw-z-header: 100;
+  --dw-z-nav: 110;
+  --dw-z-modal: 1000;
+
+  /* -------------------------------------------------------------------------- */
+  /* Fallback für Light-Theme, wird unten semantisch überschrieben             */
+  /* -------------------------------------------------------------------------- */
+  --color-mode-colors-link-light: var(--colors-brand-dw-dark-blue);
+  --color-mode-colors-link-dark: var(--colors-brand-white);
+
+  /* -------------------------------------------------------------------------- */
+  /* Semantische Typo-Tokens                                                    */
+  /* -------------------------------------------------------------------------- */
+  --dw-type-form-label-size: var(--dw-font-size-base);
+  --dw-type-form-label-weight: var(--dw-font-weight-medium);
+  --dw-type-form-label-line-height: var(--dw-line-height-tight);
+
+  --dw-type-input-size: var(--dw-font-size-base);
+  --dw-type-input-line-height: var(--dw-line-height-tight);
+  --dw-type-input-weight: var(--dw-font-weight-regular);
+
+  --dw-type-help-size: var(--dw-font-size-minus-1);
+  --dw-type-help-line-height: var(--dw-line-height-copy);
+
+  --dw-type-error-size: var(--dw-font-size-minus-1);
+  --dw-type-error-line-height: var(--dw-line-height-copy);
+
+  --dw-type-link-size: var(--dw-font-size-base);
+  --dw-type-link-weight: var(--dw-font-weight-semibold);
+  --dw-type-link-line-height: var(--dw-line-height-copy);
+
+  --dw-type-button-size: 1rem;
+  --dw-type-button-size-compact: 0.88rem;
+  --dw-type-button-weight: var(--dw-font-weight-semibold);
+  --dw-type-button-line-height: 1;
+
+  --dw-type-kicker-size: var(--dw-font-size-minus-1);
+  --dw-type-kicker-line-height: var(--dw-line-height-tight);
+  --dw-type-kicker-weight: var(--dw-font-weight-regular);
+  --dw-type-kicker-transform: uppercase;
+  --dw-type-kicker-letter-spacing: var(--dw-letter-spacing-caps);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Semantische Light-Definition                                                */
+/* -------------------------------------------------------------------------- */
+
+:root,
+:root[data-dw-theme='light'],
+[data-dw-theme='light'],
+.light {
+  color-scheme: light;
+
+  --hover: var(--colors-brand-dw-dark-blue);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-brand-white);
+  --backgrounds-bg-2: var(--colors-bluegrays-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-02);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-light-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-bluegrays-blue-grey-02);
+
+  --buttons-icon-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-active: var(--colors-brand-white);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-active: var(--colors-brand-white);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-02);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-dw-dark-blue);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-error-info: var(--colors-accent-breaking);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-input-input-text: var(--fonts-prio-2);
+
+  --fonts-link: var(--colors-brand-dw-dark-blue);
+  --fonts-prio-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --fonts-prio-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-04);
+  --fonts-prio-4: var(--colors-bluegrays-blue-grey-03);
+
+  --input-state-borders-input-hover: var(--hover);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-breaking);
+
+  --input-state-fills-default: var(--colors-brand-white);
+  --input-state-fills-error: var(--colors-brand-white);
+  --input-state-fills-inactive: var(--colors-bluegrays-blue-grey-01);
+  --input-state-fills-input-hover: var(--colors-brand-white);
+
+  --links-active: var(--colors-bluegrays-dark-blue-grey-02);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-03);
+  --links-visited: var(--colors-bluegrays-blue-grey-04);
+  --links-focus: var(--colors-brand-dw-dark-blue);
+  --links-hover: var(--colors-brand-dw-dark-blue);
+  --links-normal: var(--colors-brand-dw-dark-blue);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg-alt: var(--backgrounds-bg-2);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--colors-bluegrays-dark-blue-grey-01);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-brand-white);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 12%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Semantische Dark-Definition                                                 */
+/* -------------------------------------------------------------------------- */
+
+:root[data-dw-theme='dark'],
+[data-dw-theme='dark'],
+.dark {
+  color-scheme: dark;
+
+  --hover: var(--colors-brand-white);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --backgrounds-bg-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-04);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-dark-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-brand-dw-dark-blue);
+
+  --buttons-icon-regular: var(--colors-brand-white);
+  --buttons-icon-hover: var(--colors-brand-white);
+  --buttons-icon-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-white);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-white);
+  --buttons-text-tertiary-regular: var(--colors-brand-white);
+  --buttons-text-active: var(--colors-brand-dw-dark-blue);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-white);
+  --buttons-text-tertiary-focus: var(--colors-brand-white);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-white);
+  --buttons-state-borders-active: var(--colors-brand-white);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-white);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-white);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-brand-dw-light-blue);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-error-info: var(--colors-accent-accent-red);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-03);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-input-text: var(--colors-brand-white);
+
+  --fonts-link: var(--colors-brand-white);
+  --fonts-prio-1: var(--colors-bluegrays-blue-grey-01);
+  --fonts-prio-2: var(--colors-bluegrays-blue-grey-02);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-03);
+  --fonts-prio-4: var(--colors-brand-dw-light-blue);
+
+  --input-state-borders-input-hover: var(--colors-bluegrays-blue-grey-01);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-active: var(--colors-brand-white);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-accent-red);
+
+  --input-state-fills-default: var(--backgrounds-bg-1);
+  --input-state-fills-error: var(--backgrounds-bg-1);
+  --input-state-fills-inactive: var(--backgrounds-bg-2);
+  --input-state-fills-input-hover: var(--backgrounds-bg-1);
+
+  --links-active: var(--colors-bluegrays-blue-grey-01);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-04);
+  --links-visited: var(--colors-bluegrays-blue-grey-03);
+  --links-focus: var(--colors-brand-white);
+  --links-hover: var(--colors-brand-white);
+  --links-normal: var(--colors-brand-white);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-2);
+  --dw-surface-bg-alt: var(--backgrounds-bg-1);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--backgrounds-bg-1);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-bluegrays-dark-blue-grey-02);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 18%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme='light']) {
+    color-scheme: dark;
+
+    --hover: var(--colors-brand-white);
+    --active: var(--colors-brand-white);
+    --inactive: var(--colors-brand-white);
+
+    --backgrounds-bg-1: var(--colors-bluegrays-dark-blue-grey-02);
+    --backgrounds-bg-2: var(--colors-bluegrays-dark-blue-grey-01);
+    --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-04);
+    --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+    --backgrounds-bg-crosspromotion: var(--colors-brand-dw-dark-blue);
+    --backgrounds-bg-overviewpageteaser: var(--colors-brand-dw-dark-blue);
+
+    --buttons-icon-regular: var(--colors-brand-white);
+    --buttons-icon-hover: var(--colors-brand-white);
+    --buttons-icon-active: var(--colors-brand-dw-dark-blue);
+    --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+    --buttons-icon-focus: var(--colors-brand-white);
+
+    --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+    --buttons-text-secondary-regular: var(--colors-brand-white);
+    --buttons-text-tertiary-regular: var(--colors-brand-white);
+    --buttons-text-active: var(--colors-brand-dw-dark-blue);
+    --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+
+    --buttons-state-borders-hover: var(--colors-brand-white);
+    --buttons-state-borders-focus: var(--colors-accent-accent-green);
+    --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+    --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+    --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-04);
+    --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+    --buttons-state-fills-active: var(--colors-brand-white);
+    --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+
+    --font-colors-headline-detail-page-headline: var(--colors-brand-white);
+    --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-blue-grey-01);
+    --font-colors-headline-contentblock-sub-headline: var(--colors-brand-dw-light-blue);
+
+    --font-colors-info-form-label-info: var(--colors-bluegrays-blue-grey-02);
+    --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-03);
+    --font-colors-info-error-info: var(--colors-accent-accent-red);
+
+    --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-03);
+    --font-colors-input-input-text: var(--colors-brand-white);
+
+    --fonts-link: var(--colors-brand-white);
+    --fonts-prio-1: var(--colors-bluegrays-blue-grey-01);
+    --fonts-prio-2: var(--colors-bluegrays-blue-grey-02);
+    --fonts-prio-3: var(--colors-bluegrays-blue-grey-03);
+    --fonts-prio-4: var(--colors-brand-dw-light-blue);
+
+    --input-state-borders-input-hover: var(--colors-bluegrays-blue-grey-01);
+    --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-03);
+    --input-state-borders-active: var(--colors-brand-white);
+    --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+    --input-state-borders-focus: var(--colors-accent-accent-green);
+    --input-state-borders-error: var(--colors-accent-accent-red);
+
+    --input-state-fills-default: var(--backgrounds-bg-1);
+    --input-state-fills-error: var(--backgrounds-bg-1);
+    --input-state-fills-inactive: var(--backgrounds-bg-2);
+    --input-state-fills-input-hover: var(--backgrounds-bg-1);
+
+    --links-active: var(--colors-bluegrays-blue-grey-01);
+    --links-deactivated: var(--colors-bluegrays-blue-grey-04);
+    --links-visited: var(--colors-bluegrays-blue-grey-03);
+    --links-focus: var(--colors-brand-white);
+    --links-hover: var(--colors-brand-white);
+    --links-normal: var(--colors-brand-white);
+
+    --dw-page-bg: var(--backgrounds-bg-1);
+    --dw-surface-bg: var(--backgrounds-bg-2);
+    --dw-surface-bg-alt: var(--backgrounds-bg-1);
+    --dw-surface-bg-soft: var(--backgrounds-bg-3);
+    --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+    --dw-surface-bg-strong: var(--backgrounds-bg-1);
+
+    --dw-text-color: var(--fonts-prio-1);
+    --dw-text-color-strong: var(--fonts-prio-1);
+    --dw-text-color-brand: var(--fonts-link);
+    --dw-text-color-muted: var(--fonts-prio-3);
+    --dw-text-color-inverse: var(--colors-bluegrays-dark-blue-grey-02);
+    --dw-text-color-error: var(--font-colors-info-error-info);
+    --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+    --dw-link-color: var(--links-normal);
+    --dw-link-color-hover: var(--links-hover);
+    --dw-link-color-visited: var(--links-visited);
+
+    --dw-border-color: var(--input-state-borders-active);
+    --dw-border-color-muted: var(--input-state-borders-default-1);
+    --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 18%, transparent);
+
+    --dw-focus-ring-color: var(--buttons-state-borders-focus);
+    --dw-selection-bg: var(--backgrounds-bg-3);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Globale Grundregeln                                                         */
+/* -------------------------------------------------------------------------- */
+
+html {
+  font-size: clamp(
+    var(--dw-basefont-min),
+    calc(15px + ((100vw - 375px) / 213)),
+    var(--dw-basefont-max)
+  );
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+
+@media (min-width: 1440px) {
+  :root {
+    --dw-basefont-max: 18px;
+  }
+
+  html {
+    font-size: var(--dw-basefont-max);
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: var(--dw-line-height-copy);
+  color: var(--dw-text-color);
+  background: var(--dw-page-bg);
+  text-rendering: optimizelegibility;
+  font-synthesis-weight: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--dw-link-color);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.12em;
+}
+
+a:visited {
+  color: var(--dw-link-color-visited);
+}
+
+a:hover {
+  color: var(--dw-link-color-hover);
+}
+
+::selection {
+  background: var(--dw-selection-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--dw-focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Generische Layout-Helfer                                                    */
+/* -------------------------------------------------------------------------- */
+
+.dw-page-width {
+  width: min(100%, var(--dw-layout-max-width));
+  margin-inline: auto;
+}
+
+.dw-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--dw-grid-columns), minmax(0, 1fr));
+  gap: var(--dw-grid-gap);
+}
+
+.dw-grid > * {
+  min-width: 0;
+}
+
+.dw-col-span-full {
+  grid-column: 1 / -1;
+}
+
+.dw-stack > * + * {
+  margin-top: var(--dw-space-1);
+}
+
+.dw-stack-sm > * + * {
+  margin-top: var(--dw-space-0-5);
+}
+
+.dw-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dw-space-0-5);
+  align-items: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Generische Text-Helfer                                                      */
+/* -------------------------------------------------------------------------- */
+
+.dw-text-body {
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: var(--dw-line-height-copy);
+}
+
+.dw-text-help {
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-help-size);
+  line-height: var(--dw-type-help-line-height);
+  color: var(--font-colors-info-help-info);
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+.dw-text-error {
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-error-size);
+  line-height: var(--dw-type-error-line-height);
+  color: var(--font-colors-info-error-info);
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+.dw-kicker {
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-kicker-size);
+  line-height: var(--dw-type-kicker-line-height);
+  text-transform: var(--dw-type-kicker-transform);
+  letter-spacing: var(--dw-type-kicker-letter-spacing);
+  color: var(--font-colors-info-kicker-kicker-info);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Optionale Cap-Helfer                                                        */
+/* -------------------------------------------------------------------------- */
+
+.dw-basefont-cap-18 {
+  --dw-basefont-max: 18px;
+}
+
+.dw-basefont-cap-20 {
+  --dw-basefont-max: 20px;
+}
+
+.dw-layout-cap-1440 {
+  --dw-layout-max-width: 1440px;
+}
+
+
+ /* -------------------------------------------------------------------------- */
+ /* Integrierte Farb- und Theme-Tokens aus colors.css                          */
+ /* -------------------------------------------------------------------------- */
+
+:root {
+  --primary-dw-light-blue: #05b2fc;
+  --primary-dw-dark-blue: #002186;
+  --primary-dw-yellow: #fae000;
+  --signal-accent-green: #63de9d;
+  --signal-accent-red: #ef6c6c;
+  --greys-blue-grey-2: #cde1ee;
+  --greys-white: #fff;
+  --greys-blue-grey-1: #f0f6fa;
+  --greys-blue-grey-3: #99b5c9;
+  --greys-blue-grey-4: #5c718a;
+  --greys-dark-blue-grey-1: #081336;
+  --greys-dark-blue-grey-2: #000821;
+  --greys-warm-grey-1: #f4f2f2;
+  --greys-warm-grey-2: #e0dfde;
+  --greys-warm-grey-3: #cfccca;
+}
+
+.light {
+  /* Hover */
+  --hover: var(--colors-brand-dw-dark-blue);
+  
+  /* Active */
+  --active: #fff;
+  
+  /* Inactive */
+  --inactive: #fff;
+  
+  /* backgrounds */
+  --backgrounds-bg-1: var(--colors-brand-white);
+  --backgrounds-bg-2: var(--colors-bluegrays-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-02);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-light-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-bluegrays-blue-grey-02);
+  
+  /* buttons / icon */
+  --buttons-icon-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-active: var(--colors-brand-white);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-onimage-regular: var(--colors-brand-white);
+  --buttons-icon-onimage-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-focus: var(--colors-brand-dw-dark-blue);
+  
+  /* buttons / state-borders */
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+  --buttons-state-borders-quaternary-regular: var(--colors-special-transparent);
+  --buttons-state-borders-onimage-regular: var(--colors-special-darkbluegray-2-45);
+  --buttons-state-borders-onimage-hover: var(--colors-brand-white);
+  
+  /* buttons / state-fills */
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-onimage-regular: var(--colors-special-darkbluegray-2-45);
+  --buttons-state-fills-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-fills-focus: var(--colors-accent-accent-green);
+  --buttons-state-fills-onimage-active: var(--colors-brand-white);
+  
+  /* buttons / text */
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-active: var(--colors-brand-white);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-onimage-regular: var(--colors-brand-white);
+  --buttons-text-onimage-active: var(--colors-brand-dw-dark-blue);
+  
+  /* choice-chips / state-borders */
+  --choice-chips-state-borders-default: var(--colors-special-transparent);
+  --choice-chips-state-borders-hover: var(--colors-brand-dw-dark-blue);
+  --choice-chips-state-borders-focus: var(--colors-accent-accent-green);
+  
+  /* choice-chips / state-fills */
+  --choice-chips-state-fills-default: var(--colors-bluegrays-blue-grey-02);
+  --choice-chips-state-fills-hover: var(--colors-bluegrays-blue-grey-02);
+  --choice-chips-state-fills-focus: var(--colors-bluegrays-blue-grey-02);
+  --choice-chips-state-fills-active: var(--colors-brand-dw-dark-blue);
+  --choice-chips-state-fills-inactive: var(--colors-bluegrays-blue-grey-02);
+  
+  /* choice-chips / text */
+  --choice-chips-text-default: var(--colors-brand-dw-dark-blue);
+  --choice-chips-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --choice-chips-text-active: var(--colors-brand-white);
+  
+  /* font-colors / headline */
+  --font-colors-headline-richtext-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-contentblock-headline: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-headline-overview-page-emphasized-headline: var(--colors-brand-dw-light-blue);
+  --font-colors-headline-teaser-headline: var(--colors-brand-dw-dark-blue);
+  --font-colors-headline-teaser-emphasized-headline: var(--fonts-link);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-detail-page-headline: var(--fonts-link);
+  --font-colors-headline-overview-page-headline: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-headline-richtext-sub-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-teaser-headline-crosspromotion: var(--colors-brand-dw-dark-blue);
+  
+  /* font-colors / info */
+  --font-colors-info-person-info: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-info-date-time-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-copyright-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-error-info: var(--colors-accent-breaking);
+  --font-colors-info-form-label-info: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-04);
+  
+  /* font-colors / info / kicker */
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-kicker-kicker-link: var(--color-mode-colors-link-light);
+  
+  /* font-colors / input */
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-input-date-time-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-input-text: var(--fonts-prio-2);
+  
+  /* font-colors / interaction */
+  --font-colors-interaction-link: var(--colors-brand-dw-dark-blue);
+  --font-colors-interaction-topics: var(--colors-brand-dw-dark-blue);
+  --font-colors-interaction-navigation-link: var(--fonts-link);
+  --font-colors-interaction-footer-link: var(--fonts-link);
+  --font-colors-interaction-page-link: var(--fonts-link);
+  --font-colors-interaction-richtext-link-interaction: var(--fonts-link);
+  --font-colors-interaction-button-interaction: var(--fonts-link);
+  --font-colors-interaction-topics-link: var(--color-mode-colors-link-light);
+  
+  /* font-colors / text */
+  --font-colors-text-teaser-text: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-text-detail-intro-text: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-text-detail-richtext: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-text-detail-rich-text-bold: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-text-page-description-text: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-text-caption-text: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-text-person-info-text: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-text-teaser-text-crosspromotion: var(--colors-brand-dw-dark-blue);
+  
+  /* fonts */
+  --fonts-link: var(--colors-brand-dw-dark-blue);
+  --fonts-prio-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --fonts-prio-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-04);
+  --fonts-prio-4: var(--colors-bluegrays-blue-grey-03);
+  
+  /* input / state-borders */
+  --input-state-borders-input-hover: var(--hover);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-breaking);
+  
+  /* input / state-fills */
+  --input-state-fills-error: var(--colors-brand-white);
+  --input-state-fills-inactive: var(--colors-bluegrays-blue-grey-01);
+  --input-state-fills-input-hover: var(--colors-brand-white);
+  
+  /* links */
+  --links-active: var(--colors-bluegrays-dark-blue-grey-02);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-03);
+  --links-visited: var(--colors-bluegrays-blue-grey-04);
+  --links-focus: var(--colors-brand-dw-dark-blue);
+  --links-hover: var(--colors-brand-dw-dark-blue);
+  --links-normal: var(--colors-brand-dw-dark-blue);
+}
+
+.dark {
+  /* Hover */
+  --hover: var(--colors-brand-white);
+  
+  /* Active */
+  --active: #fff;
+  
+  /* Inactive */
+  --inactive: #fff;
+  
+  /* backgrounds */
+  --backgrounds-bg-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --backgrounds-bg-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-04);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-dark-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-brand-dw-dark-blue);
+  
+  /* buttons / icon */
+  --buttons-icon-regular: var(--colors-brand-white);
+  --buttons-icon-hover: var(--colors-brand-white);
+  --buttons-icon-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-white);
+  --buttons-icon-onimage-regular: var(--colors-brand-white);
+  --buttons-icon-onimage-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-primary-focus: var(--colors-brand-dw-dark-blue);
+  
+  /* buttons / state-borders */
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-white);
+  --buttons-state-borders-active: var(--colors-brand-white);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+  --buttons-state-borders-quaternary-regular: var(--colors-special-transparent);
+  --buttons-state-borders-onimage-regular: var(--colors-special-darkbluegray-2-45);
+  --buttons-state-borders-onimage-hover: var(--colors-brand-white);
+  
+  /* buttons / state-fills */
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-onimage-regular: var(--colors-special-darkbluegray-2-45);
+  --buttons-state-fills-active: var(--colors-brand-white);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-fills-focus: var(--colors-accent-accent-green);
+  --buttons-state-fills-onimage-active: var(--colors-brand-white);
+  
+  /* buttons / text */
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-white);
+  --buttons-text-tertiary-regular: var(--colors-brand-white);
+  --buttons-text-active: var(--colors-brand-dw-dark-blue);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-white);
+  --buttons-text-tertiary-focus: var(--colors-brand-white);
+  --buttons-text-onimage-regular: var(--colors-brand-white);
+  --buttons-text-onimage-active: var(--colors-brand-dw-dark-blue);
+  
+  /* choice-chips / state-borders */
+  --choice-chips-state-borders-default: var(--colors-bluegrays-blue-grey-02);
+  --choice-chips-state-borders-hover: #fff;
+  --choice-chips-state-borders-focus: var(--colors-accent-accent-green);
+  
+  /* choice-chips / state-fills */
+  --choice-chips-state-fills-default: var(--colors-special-transparent);
+  --choice-chips-state-fills-hover: var(--colors-special-transparent);
+  --choice-chips-state-fills-focus: var(--colors-special-transparent);
+  --choice-chips-state-fills-active: var(--colors-brand-white);
+  --choice-chips-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+  
+  /* choice-chips / text */
+  --choice-chips-text-default: var(--colors-brand-white);
+  --choice-chips-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --choice-chips-text-active: var(--colors-brand-dw-dark-blue);
+  
+  /* font-colors / headline */
+  --font-colors-headline-richtext-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-contentblock-headline: var(--colors-brand-dw-light-blue);
+  --font-colors-headline-overview-page-emphasized-headline: var(--colors-brand-dw-light-blue);
+  --font-colors-headline-teaser-headline: var(--color-mode-colors-link-dark);
+  --font-colors-headline-teaser-emphasized-headline: #fff;
+  --font-colors-headline-contentblock-sub-headline: var(--colors-brand-dw-light-blue);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-detail-page-headline: #fff;
+  --font-colors-headline-overview-page-headline: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-headline-richtext-sub-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-teaser-headline-crosspromotion: var(--colors-brand-dw-light-blue);
+  
+  /* font-colors / info */
+  --font-colors-info-person-info: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-info-date-time-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-copyright-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-error-info: var(--colors-accent-accent-red);
+  --font-colors-info-form-label-info: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-03);
+  
+  /* font-colors / info / kicker */
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-kicker-kicker-link: var(--color-mode-colors-link-dark);
+  
+  /* font-colors / input */
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-date-time-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-input-text: #fff;
+  
+  /* font-colors / interaction */
+  --font-colors-interaction-link: var(--colors-brand-white);
+  --font-colors-interaction-topics: var(--colors-brand-white);
+  --font-colors-interaction-navigation-link: var(--colors-brand-white);
+  --font-colors-interaction-footer-link: var(--colors-brand-white);
+  --font-colors-interaction-page-link: var(--colors-brand-white);
+  --font-colors-interaction-richtext-link-interaction: var(--colors-brand-white);
+  --font-colors-interaction-button-interaction: var(--colors-brand-white);
+  --font-colors-interaction-topics-link: var(--color-mode-colors-link-dark);
+  
+  /* font-colors / text */
+  --font-colors-text-teaser-text: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-text-detail-intro-text: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-text-detail-richtext: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-text-detail-rich-text-bold: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-text-page-description-text: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-text-caption-text: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-text-person-info-text: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-text-teaser-text-crosspromotion: var(--colors-brand-white);
+  
+  /* fonts */
+  --fonts-link: var(--colors-brand-white);
+  --fonts-prio-1: var(--colors-bluegrays-blue-grey-01);
+  --fonts-prio-2: var(--colors-bluegrays-blue-grey-02);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-03);
+  --fonts-prio-4: var(--colors-brand-dw-light-blue);
+  
+  /* input / state-borders */
+  --input-state-borders-input-hover: var(--colors-bluegrays-blue-grey-01);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-active: #fff;
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-accent-red);
+  
+  /* input / state-fills */
+  --input-state-fills-error: #fff;
+  --input-state-fills-inactive: #fff;
+  --input-state-fills-input-hover: #fff;
+  
+  /* links */
+  --links-active: var(--colors-bluegrays-blue-grey-01);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-04);
+  --links-visited: var(--colors-bluegrays-blue-grey-03);
+  --links-focus: var(--colors-brand-white);
+  --links-hover: var(--colors-brand-white);
+  --links-normal: var(--colors-brand-white);
+}
+
+.Value {
+  /* color-mode colors */
+  --color-mode-colors-link-light: var(--colors-brand-dw-dark-blue);
+  --color-mode-colors-link-dark: var(--colors-brand-white);
+  --color-mode-colors-prio-1-light: var(--colors-bluegrays-dark-blue-grey-02);
+  --color-mode-colors-prio-1-dark: var(--colors-bluegrays-blue-grey-01);
+  
+  /* colors / accent */
+  --colors-accent-accent-red: #ef6c6c;
+  --colors-accent-accent-green: #63de9d;
+  --colors-accent-breaking: #be232d;
+  --colors-accent-accent-red-dark: #c74a4a;
+  
+  /* colors / bluegrays */
+  --colors-bluegrays-blue-grey-01: #f0f6fa;
+  --colors-bluegrays-blue-grey-02: #cde1ee;
+  --colors-bluegrays-blue-grey-03: #99b5c9;
+  --colors-bluegrays-blue-grey-04: #5c718a;
+  --colors-bluegrays-dark-blue-grey-01: #081336;
+  --colors-bluegrays-dark-blue-grey-02: #000821;
+  
+  /* colors / brand */
+  --colors-brand-dw-dark-blue: #002186;
+  --colors-brand-dw-light-blue: #05b2fc;
+  --colors-brand-dw-yellow: #fae000;
+  --colors-brand-white: #fff;
+  
+  /* colors / special */
+  --colors-special-darkbluegray-2-45: rgba(0, 8, 33, 0.45);
+  --colors-special-transparent: rgba(255, 255, 255, 0);
+  
+  /* colors / warmgrays */
+  --colors-warmgrays-warm-grey-01: #f4f2f2;
+  --colors-warmgrays-warm-grey-02: #e0dfde;
+  --colors-warmgrays-warm-grey-03: #cfccca;
+}
+
+
+/* ==========================================================================
+   Automatischer User-Mode über prefers-color-scheme
+   - Default: Light
+   - Dark automatisch über prefers-color-scheme
+   - Explizite Overrides über data-dw-theme="light" | "dark" | "auto"
+   - Bestehende .light / .dark Klassen bleiben kompatibel
+   ========================================================================== */
+
+:root,
+:root[data-dw-theme="light"] {
+  color-scheme: light;
+
+  --hover: var(--colors-brand-dw-dark-blue);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-brand-white);
+  --backgrounds-bg-2: var(--colors-bluegrays-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-02);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-light-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-bluegrays-blue-grey-02);
+
+  --buttons-icon-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-active: var(--colors-brand-white);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-active: var(--colors-brand-white);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-02);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-dw-dark-blue);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-error-info: var(--colors-accent-breaking);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-input-input-text: var(--fonts-prio-2);
+
+  --fonts-link: var(--colors-brand-dw-dark-blue);
+  --fonts-prio-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --fonts-prio-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-04);
+  --fonts-prio-4: var(--colors-bluegrays-blue-grey-03);
+
+  --input-state-borders-input-hover: var(--hover);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-breaking);
+
+  --input-state-fills-default: var(--colors-brand-white);
+  --input-state-fills-error: var(--colors-brand-white);
+  --input-state-fills-inactive: var(--colors-bluegrays-blue-grey-01);
+  --input-state-fills-input-hover: var(--colors-brand-white);
+
+  --links-active: var(--colors-bluegrays-dark-blue-grey-02);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-03);
+  --links-visited: var(--colors-bluegrays-blue-grey-04);
+  --links-focus: var(--colors-brand-dw-dark-blue);
+  --links-hover: var(--colors-brand-dw-dark-blue);
+  --links-normal: var(--colors-brand-dw-dark-blue);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg-alt: var(--backgrounds-bg-2);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--colors-bluegrays-dark-blue-grey-01);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-brand-white);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 12%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+}
+
+:root[data-dw-theme="dark"] {
+  color-scheme: dark;
+
+  --hover: var(--colors-brand-white);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --backgrounds-bg-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-04);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-dark-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-brand-dw-dark-blue);
+
+  --buttons-icon-regular: var(--colors-brand-white);
+  --buttons-icon-hover: var(--colors-brand-white);
+  --buttons-icon-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-white);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-white);
+  --buttons-text-tertiary-regular: var(--colors-brand-white);
+  --buttons-text-active: var(--colors-brand-dw-dark-blue);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-white);
+  --buttons-text-tertiary-focus: var(--colors-brand-white);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-white);
+  --buttons-state-borders-active: var(--colors-brand-white);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-white);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-white);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-brand-dw-light-blue);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-error-info: var(--colors-accent-accent-red);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-03);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-input-text: var(--colors-brand-white);
+
+  --fonts-link: var(--colors-brand-white);
+  --fonts-prio-1: var(--colors-bluegrays-blue-grey-01);
+  --fonts-prio-2: var(--colors-bluegrays-blue-grey-02);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-03);
+  --fonts-prio-4: var(--colors-brand-dw-light-blue);
+
+  --input-state-borders-input-hover: var(--colors-bluegrays-blue-grey-01);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-active: var(--colors-brand-white);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-accent-red);
+
+  --input-state-fills-default: var(--backgrounds-bg-1);
+  --input-state-fills-error: var(--backgrounds-bg-1);
+  --input-state-fills-inactive: var(--backgrounds-bg-2);
+  --input-state-fills-input-hover: var(--backgrounds-bg-1);
+
+  --links-active: var(--colors-bluegrays-blue-grey-01);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-04);
+  --links-visited: var(--colors-bluegrays-blue-grey-03);
+  --links-focus: var(--colors-brand-white);
+  --links-hover: var(--colors-brand-white);
+  --links-normal: var(--colors-brand-white);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-2);
+  --dw-surface-bg-alt: var(--backgrounds-bg-1);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--backgrounds-bg-1);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-bluegrays-dark-blue-grey-02);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 18%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+}
+
+:root[data-dw-theme="auto"] {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]),
+  :root[data-dw-theme="auto"] {
+    color-scheme: dark;
+
+  --hover: var(--colors-brand-white);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --backgrounds-bg-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-04);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-dark-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-brand-dw-dark-blue);
+
+  --buttons-icon-regular: var(--colors-brand-white);
+  --buttons-icon-hover: var(--colors-brand-white);
+  --buttons-icon-active: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-white);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-white);
+  --buttons-text-tertiary-regular: var(--colors-brand-white);
+  --buttons-text-active: var(--colors-brand-dw-dark-blue);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-white);
+  --buttons-text-tertiary-focus: var(--colors-brand-white);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-white);
+  --buttons-state-borders-active: var(--colors-brand-white);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-04);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-white);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-white);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-blue-grey-01);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-brand-dw-light-blue);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-blue-grey-02);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-info-error-info: var(--colors-accent-accent-red);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-03);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-03);
+  --font-colors-input-input-text: var(--colors-brand-white);
+
+  --fonts-link: var(--colors-brand-white);
+  --fonts-prio-1: var(--colors-bluegrays-blue-grey-01);
+  --fonts-prio-2: var(--colors-bluegrays-blue-grey-02);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-03);
+  --fonts-prio-4: var(--colors-brand-dw-light-blue);
+
+  --input-state-borders-input-hover: var(--colors-bluegrays-blue-grey-01);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-active: var(--colors-brand-white);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-accent-red);
+
+  --input-state-fills-default: var(--backgrounds-bg-1);
+  --input-state-fills-error: var(--backgrounds-bg-1);
+  --input-state-fills-inactive: var(--backgrounds-bg-2);
+  --input-state-fills-input-hover: var(--backgrounds-bg-1);
+
+  --links-active: var(--colors-bluegrays-blue-grey-01);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-04);
+  --links-visited: var(--colors-bluegrays-blue-grey-03);
+  --links-focus: var(--colors-brand-white);
+  --links-hover: var(--colors-brand-white);
+  --links-normal: var(--colors-brand-white);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-2);
+  --dw-surface-bg-alt: var(--backgrounds-bg-1);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--backgrounds-bg-1);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-bluegrays-dark-blue-grey-02);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 18%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-dw-theme="auto"] {
+    color-scheme: light;
+
+  --hover: var(--colors-brand-dw-dark-blue);
+  --active: var(--colors-brand-white);
+  --inactive: var(--colors-brand-white);
+
+  --backgrounds-bg-1: var(--colors-brand-white);
+  --backgrounds-bg-2: var(--colors-bluegrays-blue-grey-01);
+  --backgrounds-bg-3: var(--colors-bluegrays-blue-grey-02);
+  --backgrounds-bg-4: var(--colors-bluegrays-blue-grey-03);
+  --backgrounds-bg-crosspromotion: var(--colors-brand-dw-light-blue);
+  --backgrounds-bg-overviewpageteaser: var(--colors-bluegrays-blue-grey-02);
+
+  --buttons-icon-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-icon-active: var(--colors-brand-white);
+  --buttons-icon-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-icon-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-text-primary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-regular: var(--colors-brand-dw-dark-blue);
+  --buttons-text-active: var(--colors-brand-white);
+  --buttons-text-inactive: var(--colors-bluegrays-blue-grey-03);
+  --buttons-text-primary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-secondary-focus: var(--colors-brand-dw-dark-blue);
+  --buttons-text-tertiary-focus: var(--colors-brand-dw-dark-blue);
+
+  --buttons-state-borders-regular: var(--colors-special-transparent);
+  --buttons-state-borders-hover: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-borders-inactive: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-borders-focus: var(--colors-accent-accent-green);
+  --buttons-state-borders-tertiary-regular: var(--colors-bluegrays-blue-grey-03);
+
+  --buttons-state-fills-primary-regular: var(--colors-brand-dw-yellow);
+  --buttons-state-fills-secondary-regular: var(--colors-bluegrays-blue-grey-02);
+  --buttons-state-fills-tertiary-regular: var(--colors-special-transparent);
+  --buttons-state-fills-active: var(--colors-brand-dw-dark-blue);
+  --buttons-state-fills-inactive: var(--colors-bluegrays-blue-grey-02);
+
+  --font-colors-headline-detail-page-headline: var(--colors-brand-dw-dark-blue);
+  --font-colors-headline-navigation-section-headline: var(--colors-bluegrays-dark-blue-grey-02);
+  --font-colors-headline-contentblock-sub-headline: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-info-form-label-info: var(--colors-bluegrays-dark-blue-grey-01);
+  --font-colors-info-help-info: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-info-error-info: var(--colors-accent-breaking);
+  --font-colors-info-kicker-kicker-info: var(--colors-bluegrays-blue-grey-04);
+
+  --font-colors-input-placeholder: var(--colors-bluegrays-blue-grey-04);
+  --font-colors-input-input-text: var(--fonts-prio-2);
+
+  --fonts-link: var(--colors-brand-dw-dark-blue);
+  --fonts-prio-1: var(--colors-bluegrays-dark-blue-grey-02);
+  --fonts-prio-2: var(--colors-bluegrays-dark-blue-grey-01);
+  --fonts-prio-3: var(--colors-bluegrays-blue-grey-04);
+  --fonts-prio-4: var(--colors-bluegrays-blue-grey-03);
+
+  --input-state-borders-input-hover: var(--hover);
+  --input-state-borders-default-1: var(--colors-bluegrays-blue-grey-04);
+  --input-state-borders-active: var(--colors-brand-dw-dark-blue);
+  --input-state-borders-inactive: var(--colors-bluegrays-blue-grey-03);
+  --input-state-borders-focus: var(--colors-accent-accent-green);
+  --input-state-borders-error: var(--colors-accent-breaking);
+
+  --input-state-fills-default: var(--colors-brand-white);
+  --input-state-fills-error: var(--colors-brand-white);
+  --input-state-fills-inactive: var(--colors-bluegrays-blue-grey-01);
+  --input-state-fills-input-hover: var(--colors-brand-white);
+
+  --links-active: var(--colors-bluegrays-dark-blue-grey-02);
+  --links-deactivated: var(--colors-bluegrays-blue-grey-03);
+  --links-visited: var(--colors-bluegrays-blue-grey-04);
+  --links-focus: var(--colors-brand-dw-dark-blue);
+  --links-hover: var(--colors-brand-dw-dark-blue);
+  --links-normal: var(--colors-brand-dw-dark-blue);
+
+  /* Generische DW-Basismapping-Tokens */
+  --dw-page-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg: var(--backgrounds-bg-1);
+  --dw-surface-bg-alt: var(--backgrounds-bg-2);
+  --dw-surface-bg-soft: var(--backgrounds-bg-3);
+  --dw-surface-bg-accent: var(--backgrounds-bg-crosspromotion);
+  --dw-surface-bg-strong: var(--colors-bluegrays-dark-blue-grey-01);
+
+  --dw-text-color: var(--fonts-prio-1);
+  --dw-text-color-strong: var(--fonts-prio-1);
+  --dw-text-color-brand: var(--fonts-link);
+  --dw-text-color-muted: var(--fonts-prio-3);
+  --dw-text-color-inverse: var(--colors-brand-white);
+  --dw-text-color-error: var(--font-colors-info-error-info);
+  --dw-heading-color: var(--font-colors-headline-detail-page-headline);
+
+  --dw-link-color: var(--links-normal);
+  --dw-link-color-hover: var(--links-hover);
+  --dw-link-color-visited: var(--links-visited);
+
+  --dw-border-color: var(--input-state-borders-active);
+  --dw-border-color-muted: var(--input-state-borders-default-1);
+  --dw-border-color-soft: color-mix(in srgb, var(--fonts-prio-1) 12%, transparent);
+
+  --dw-focus-ring-color: var(--buttons-state-borders-focus);
+  --dw-selection-bg: var(--backgrounds-bg-3);
+  }
+}

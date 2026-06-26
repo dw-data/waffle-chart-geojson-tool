@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Sample waffle chart</title>
+  <desc id="desc">A sample chart showing a blue and red waffle visualization.</desc>
+  <rect width="720" height="420" fill="#edf5fa"/>
+  <g fill="#002186" font-family="Arial, sans-serif" font-weight="700">
+    <text x="32" y="42" font-size="24">☝ These executive orders have been legally challenged</text>
+  </g>
+  <line x1="384" y1="48" x2="612" y2="48" stroke="#f06a6a" stroke-width="3"/>
+  <g font-family="Arial, sans-serif" fill="#002186" font-size="11" font-weight="700">
+    <text x="410" y="86">Each square represents</text>
+    <text x="410" y="100">one executive order</text>
+  </g>
+  <path d="M392 92 C356 98 332 112 316 129" fill="none" stroke="#002186" stroke-width="1.4"/>
+  <path d="M318 130 l8 -2 l-4 7" fill="none" stroke="#002186" stroke-width="1.4"/>
+  <g transform="translate(64 88)">
+    <rect width="592" height="232" fill="#05b2fc"/>
+    <g stroke="#ffffff" stroke-opacity="0.45" stroke-width="1">
+      <path d="M37 0V232M74 0V232M111 0V232M148 0V232M185 0V232M222 0V232M259 0V232M296 0V232M333 0V232M370 0V232M407 0V232M444 0V232M481 0V232M518 0V232M555 0V232"/>
+      <path d="M0 29H592M0 58H592M0 87H592M0 116H592M0 145H592M0 174H592M0 203H592"/>
+    </g>
+    <g fill="#f26d6d">
+      <rect x="148" y="0" width="37" height="29"/>
+      <rect x="0" y="58" width="37" height="29"/>
+      <rect x="148" y="58" width="37" height="29"/>
+      <rect x="222" y="58" width="37" height="29"/>
+      <rect x="407" y="58" width="37" height="29"/>
+      <rect x="444" y="58" width="37" height="29"/>
+      <rect x="518" y="58" width="37" height="29"/>
+      <rect x="148" y="87" width="37" height="29"/>
+      <rect x="185" y="87" width="37" height="29"/>
+      <rect x="222" y="87" width="37" height="29"/>
+      <rect x="370" y="87" width="37" height="29"/>
+      <rect x="444" y="87" width="37" height="29"/>
+      <rect x="555" y="87" width="37" height="29"/>
+      <rect x="148" y="116" width="37" height="29"/>
+      <rect x="296" y="116" width="37" height="29"/>
+      <rect x="370" y="116" width="37" height="29"/>
+      <rect x="481" y="116" width="37" height="29"/>
+      <rect x="74" y="145" width="37" height="58"/>
+      <rect x="111" y="145" width="37" height="58"/>
+      <rect x="185" y="145" width="37" height="87"/>
+      <rect x="259" y="145" width="111" height="29"/>
+      <rect x="481" y="145" width="37" height="29"/>
+      <rect x="555" y="145" width="37" height="29"/>
+      <rect x="0" y="203" width="74" height="29"/>
+      <rect x="222" y="203" width="37" height="29"/>
+      <rect x="259" y="203" width="185" height="29"/>
+    </g>
+  </g>
+  <text x="32" y="354" fill="#000821" font-size="12" font-family="Arial, sans-serif" font-style="italic">Hover or tap on a square to see details about that executive order.</text>
+  <g transform="translate(32 378)" fill="#002186">
+    <circle cx="9" cy="9" r="9" fill="#002186"/>
+    <text x="28" y="13" fill="#000821" font-size="10" font-family="Arial, sans-serif" font-weight="700">Source: Just Security Litigation Tracker, further research | data as of April 28, 2025</text>
+  </g>
+</svg>

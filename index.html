@@ -1,235 +1,932 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html data-dw-theme="auto" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Waffle Chart Generator</title>
-    <style>
-        body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
-            background-color: #F5F5F5;
-            color: #333;
-            margin: 0;
-            padding: 2rem;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DW Waffle Chart GeoJSON Generator</title>
+  <link rel="stylesheet" href="./assets/dw-base.css">
+  <link rel="stylesheet" href="./assets/dw-interaction-button.css">
+  <link rel="stylesheet" href="./assets/dw-input-text.css">
+  <link rel="stylesheet" href="./assets/dw-input-choice-chips.css">
+  <link rel="stylesheet" href="./assets/dw-input-dropdown.css">
+  <link rel="stylesheet" href="./assets/dw-interaction-link.css">
+  <link rel="stylesheet" href="./assets/dw-navigation-footer-slim.css">
+  <style>
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0 0 0 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
 
-        h2 {
-            color: #0055A4;
-        }
+    .waffle-tool {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--waffle-shell-bg, var(--dw-page-surface, var(--backgrounds-bg-1, #fff)));
+    }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+    .dw-header-minimal,
+    .dw-header-minimal--light {
+      background: var(--colors-brand-dw-light-blue, #05b2fc);
+      color: var(--colors-brand-white, #fff);
+    }
 
-        input[type="file"],
-        button {
-            margin-top: 1rem;
-            padding: 0.6rem 1rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-        }
+    .dw-header-minimal__inner {
+      width: 100%;
+      max-width: var(--dw-container-max, 1440px);
+      min-height: 4.75rem;
+      margin: 0 auto;
+      padding-inline: var(--dw-tool-main-inline-gutter, calc(100% * 2 / var(--dw-grid-columns, 30)));
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
 
-        input[type="file"] {
-            background-color: #eee;
-        }
+    .dw-header-minimal__brand {
+      display: inline-flex;
+      align-items: center;
+      color: var(--colors-brand-white, #fff);
+      text-decoration: none;
+      pointer-events: none;
+    }
 
-        button {
-            background-color: #0072CE;
-            color: white;
-            cursor: pointer;
-        }
+    .dw-header-minimal__logo {
+      display: block;
+      width: 4.25rem;
+      height: auto;
+      overflow: visible;
+    }
 
-        button:hover {
-            background-color: #0055A4;
-        }
+    .dw-header-minimal__label {
+      display: none;
+    }
 
-        svg {
-            margin-top: 2rem;
-            border: 1px solid #ccc;
-        }
+    .waffle-main {
+      flex: 1 0 auto;
+      width: min(100%, var(--dw-layout-max-width));
+      max-width: var(--dw-layout-max-width);
+      margin: 0 auto;
+      padding-block: var(--dw-tool-main-padding-block-start, var(--dw-space-2, 2rem)) var(--dw-tool-main-padding-block-end, var(--dw-space-3, 3rem));
+      padding-inline: var(--dw-tool-main-inline-gutter, calc(100% * 2 / var(--dw-grid-columns, 30)));
+    }
 
-        /* layout for input controls */
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .control-group {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .control-group label {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.9rem;
-        }
+    .waffle-hero {
+      width: 100%;
+      max-width: none;
+      margin: 0 0 var(--dw-space-2, 2rem);
+      text-align: left;
+    }
 
-    </style>
+    .waffle-title {
+      width: 100%;
+      max-width: none;
+      margin: 0 0 var(--dw-space-0-5, 0.5rem);
+      color: var(--dw-color-dark-blue, var(--colors-brand-dw-dark-blue, #002186));
+      font-size: var(--dw-font-size-plus-4, 2.0736rem);
+      font-weight: var(--dw-font-weight-semibold, 600);
+      letter-spacing: normal;
+      line-height: 1.05;
+      font-variation-settings: "ital" 0, "opsz" 20;
+    }
+
+    .waffle-intro {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      color: var(--dw-text-primary, var(--fonts-prio-1, #000821));
+      font-size: var(--dw-font-size-plus-1, 1.2rem);
+      font-weight: var(--dw-font-weight-medium, 500);
+      line-height: var(--dw-line-height-copy, 1.4);
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 0;
+      row-gap: var(--dw-tool-grid-row-gap, var(--dw-space-3, 3rem));
+      align-items: start;
+    }
+
+    .waffle-form {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .waffle-field {
+      min-width: 0;
+    }
+
+    .waffle-choice-fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .dw-fieldset__legend {
+      display: block;
+      margin: 0 0 0.625rem;
+      color: var(--font-colors-info-form-label-info, var(--dw-text-primary, #000821));
+      font-family: var(--dw-font-family-text, var(--dw-font-family));
+      font-size: var(--dw-font-size-base, 1rem);
+      font-weight: var(--dw-font-weight-medium, 500);
+      line-height: var(--dw-line-height-tight, 1.1);
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-textarea {
+      min-height: 8.5rem;
+      resize: vertical;
+      line-height: 1.4;
+      padding-block: 0.75rem;
+    }
+
+    .waffle-contact a:any-link {
+      color: var(--dw-color-blue-600, var(--colors-brand-dw-dark-blue, #002186));
+      font-weight: var(--dw-font-weight-semibold, 600);
+      text-decoration: none;
+    }
+
+    .waffle-contact a:hover,
+    .waffle-contact a:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 0.14em;
+    }
+
+    .waffle-actions .dw-interaction-button:disabled,
+    .waffle-download-action .dw-interaction-button[aria-disabled="true"] {
+      background: var(--buttons-state-fills-inactive, var(--colors-bluegrays-blue-grey-02, #cde1ee));
+      color: var(--buttons-text-inactive, var(--colors-bluegrays-blue-grey-03, #99b5c9));
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .waffle-counter {
+      margin-top: 0.375rem;
+      color: var(--dw-text-color-muted);
+      font-size: 0.875rem;
+      text-align: right;
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-grid-controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 5.25rem;
+    }
+
+    .waffle-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.875rem;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .waffle-status {
+      margin: -0.875rem 0 0;
+      color: var(--dw-text-color-muted);
+      font-size: 0.875rem;
+      min-height: 1.25rem;
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-status[data-state="error"] {
+      color: var(--colors-accent-breaking);
+      font-weight: var(--dw-font-weight-bold);
+    }
+
+    .waffle-contact {
+      margin: 0;
+      color: var(--dw-text-color);
+      font-size: 1rem;
+      line-height: 1.45;
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-output {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+      width: 100%;
+      min-width: 0;
+      justify-self: stretch;
+    }
+
+    .waffle-sample {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+    }
+
+    .waffle-output[data-mode="generated"] .waffle-sample,
+    .waffle-output[data-mode="sample"] .waffle-preview-wrap,
+    .waffle-output[data-mode="sample"] .waffle-download-action {
+      display: none;
+    }
+
+    .waffle-sample img {
+      display: block;
+      width: 100%;
+      background: var(--dw-surface-bg-alt);
+    }
+
+    .waffle-sample figcaption {
+      margin-top: 0.75rem;
+      color: var(--dw-text-color);
+      font-size: var(--dw-font-size-minus-1);
+      line-height: 1.35;
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-preview-wrap {
+      justify-self: stretch;
+    }
+
+    .waffle-preview {
+      display: grid;
+      grid-template-columns: repeat(var(--waffle-cols, 5), minmax(0, 1fr));
+      grid-auto-rows: 1fr;
+      gap: 0.75rem;
+      width: min(100%, 32.5rem);
+      padding: 1.125rem;
+      background: var(--dw-surface-bg-alt);
+    }
+
+    .waffle-preview-cell {
+      aspect-ratio: 1 / 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dw-surface-bg-soft);
+      color: var(--dw-text-color);
+      font-size: clamp(0.6rem, 1.2vw, 0.875rem);
+      font-weight: var(--dw-font-weight-bold);
+      line-height: 1;
+      overflow: hidden;
+      text-align: center;
+      word-break: break-word;
+      font-variation-settings: "ital" 0, "opsz" 10;
+    }
+
+    .waffle-preview-cell[data-filled="true"] {
+      background: var(--dw-surface-bg);
+    }
+
+    .waffle-download-action {
+      justify-self: end;
+    }
+
+    .waffle-reset-icon {
+      width: 1.0625rem;
+      height: 1.0625rem;
+    }
+
+    .waffle-download-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    @media (max-width: 959px) {
+      .waffle-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .waffle-output {
+        width: 100%;
+        max-width: none;
+        justify-self: stretch;
+      }
+
+      .waffle-sample,
+      .waffle-sample img,
+      .waffle-preview-wrap,
+      .waffle-preview {
+        width: 100%;
+        max-width: none;
+      }
+
+      .waffle-download-action {
+        justify-self: end;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .waffle-main {
+        padding: 1.875rem clamp(1.625rem, 6.5vw, 5.5rem) 3rem;
+      }
+
+      .waffle-hero {
+        margin-bottom: 2rem;
+      }
+
+      .waffle-title {
+        font-size: var(--dw-font-size-plus-4, 2.0736rem);
+        line-height: 1.05;
+      }
+
+      .waffle-intro {
+        font-size: var(--dw-font-size-plus-1, 1.2rem);
+        line-height: var(--dw-line-height-copy, 1.4);
+      }
+
+      .waffle-grid-controls {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .waffle-choice-chip-list {
+        gap: 0.75rem;
+      }
+
+      .waffle-preview {
+        gap: 0.5rem;
+        padding: 0.75rem;
+      }
+    }
+
+    @media (max-width: 599px) {
+      .waffle-download-action {
+        justify-self: stretch;
+      }
+
+      .waffle-download-action .dw-interaction-button,
+      .waffle-actions .dw-interaction-button {
+        width: 100%;
+        inline-size: 100%;
+        max-inline-size: none;
+      }
+    }
+
+
+    /* Pass 2026-06-12: Waffle dark app-shell background.
+       The app shell must use the separate dark surface background,
+       not the footer background (#000821). */
+    :root[data-dw-theme="dark"] .waffle-tool,
+    html.dark .waffle-tool,
+    body.dark .waffle-tool {
+      --waffle-shell-bg: var(--backgrounds-bg-2, var(--colors-bluegrays-dark-blue-grey-01, #081336));
+      background: var(--waffle-shell-bg) !important;
+    }
+
+
+    /* Pass 2026-06-12: Waffle hero/headline dark-mode contrast. */
+    :root[data-dw-theme="dark"] .waffle-title,
+    html.dark .waffle-title,
+    body.dark .waffle-title {
+      color: var(--colors-brand-white, #ffffff) !important;
+      -webkit-text-fill-color: currentColor;
+    }
+
+    :root[data-dw-theme="dark"] .waffle-intro,
+    html.dark .waffle-intro,
+    body.dark .waffle-intro {
+      color: var(--colors-brand-white, #ffffff) !important;
+      -webkit-text-fill-color: currentColor;
+    }
+
+
+    /* Pass 2026-06-12: Waffle contact mail link dark-mode contrast.
+       The contact area sits on the dark page background, so the e-mail link
+       must stay white across normal/hover/focus/active/visited states. */
+    :root[data-dw-theme="dark"] .waffle-contact .dw-interaction-link:any-link,
+    :root[data-dw-theme="dark"] .waffle-contact .dw-interaction-link:visited,
+    :root[data-dw-theme="dark"] .waffle-contact .dw-interaction-link:hover,
+    :root[data-dw-theme="dark"] .waffle-contact .dw-interaction-link:focus-visible,
+    :root[data-dw-theme="dark"] .waffle-contact .dw-interaction-link:active,
+    html.dark .waffle-contact .dw-interaction-link:any-link,
+    html.dark .waffle-contact .dw-interaction-link:visited,
+    html.dark .waffle-contact .dw-interaction-link:hover,
+    html.dark .waffle-contact .dw-interaction-link:focus-visible,
+    html.dark .waffle-contact .dw-interaction-link:active,
+    body.dark .waffle-contact .dw-interaction-link:any-link,
+    body.dark .waffle-contact .dw-interaction-link:visited,
+    body.dark .waffle-contact .dw-interaction-link:hover,
+    body.dark .waffle-contact .dw-interaction-link:focus-visible,
+    body.dark .waffle-contact .dw-interaction-link:active {
+      --dw-interaction-link-color: var(--colors-brand-white, #ffffff);
+      --dw-interaction-link-color-hover: var(--colors-brand-white, #ffffff);
+      --dw-interaction-link-color-focus: var(--colors-brand-white, #ffffff);
+      --dw-interaction-link-color-active: var(--colors-brand-white, #ffffff);
+      --dw-interaction-link-color-visited: var(--colors-brand-white, #ffffff);
+      --dw-interaction-link-state-color: var(--colors-brand-white, #ffffff);
+      color: var(--colors-brand-white, #ffffff) !important;
+      -webkit-text-fill-color: currentColor;
+      text-decoration-color: currentColor;
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+      :root:not([data-dw-theme="light"]) .waffle-tool {
+        --waffle-shell-bg: var(--backgrounds-bg-2, var(--colors-bluegrays-dark-blue-grey-01, #081336));
+        background: var(--waffle-shell-bg) !important;
+      }
+      :root:not([data-dw-theme="light"]) .waffle-title {
+        color: var(--colors-brand-white, #ffffff) !important;
+        -webkit-text-fill-color: currentColor;
+      }
+
+      :root:not([data-dw-theme="light"]) .waffle-intro {
+        color: var(--colors-brand-white, #ffffff) !important;
+        -webkit-text-fill-color: currentColor;
+      }
+
+      :root:not([data-dw-theme="light"]) .waffle-contact .dw-interaction-link:any-link,
+      :root:not([data-dw-theme="light"]) .waffle-contact .dw-interaction-link:visited,
+      :root:not([data-dw-theme="light"]) .waffle-contact .dw-interaction-link:hover,
+      :root:not([data-dw-theme="light"]) .waffle-contact .dw-interaction-link:focus-visible,
+      :root:not([data-dw-theme="light"]) .waffle-contact .dw-interaction-link:active {
+        --dw-interaction-link-color: var(--colors-brand-white, #ffffff);
+        --dw-interaction-link-color-hover: var(--colors-brand-white, #ffffff);
+        --dw-interaction-link-color-focus: var(--colors-brand-white, #ffffff);
+        --dw-interaction-link-color-active: var(--colors-brand-white, #ffffff);
+        --dw-interaction-link-color-visited: var(--colors-brand-white, #ffffff);
+        --dw-interaction-link-state-color: var(--colors-brand-white, #ffffff);
+        color: var(--colors-brand-white, #ffffff) !important;
+        -webkit-text-fill-color: currentColor;
+        text-decoration-color: currentColor;
+      }
+    }
+  
+
+.step-header p,
+.step-header--upload p,
+.step-header--centered p,
+.dw-tool-hero p,
+#upload-instructions,
+.waffle-intro {
+  color: var(--dw-text-primary, var(--fonts-prio-1, #000821)) !important;
+  font-family: var(--dw-font-family-text, var(--dw-font-family)) !important;
+  font-size: var(--dw-font-size-plus-1, 1.2rem) !important;
+  font-weight: var(--dw-font-weight-medium, 500) !important;
+  line-height: var(--dw-line-height-copy, 1.4) !important;
+  font-variation-settings: "ital" 0, "opsz" 10 !important;
+}
+
+:root[data-dw-theme="dark"] :is(.step-header h1, .step-header--upload h1, .step-header--centered h1, .dw-tool-hero h1, .dw-treemap-title, .waffle-title),
+html.dark :is(.step-header h1, .step-header--upload h1, .step-header--centered h1, .dw-tool-hero h1, .dw-treemap-title, .waffle-title),
+body.dark :is(.step-header h1, .step-header--upload h1, .step-header--centered h1, .dw-tool-hero h1, .dw-treemap-title, .waffle-title) {
+  color: var(--colors-brand-white, #ffffff) !important;
+  -webkit-text-fill-color: currentColor;
+}
+
+:root[data-dw-theme="dark"] :is(.step-header p, .step-header--upload p, .step-header--centered p, .dw-tool-hero p, #upload-instructions, .waffle-intro),
+html.dark :is(.step-header p, .step-header--upload p, .step-header--centered p, .dw-tool-hero p, #upload-instructions, .waffle-intro),
+body.dark :is(.step-header p, .step-header--upload p, .step-header--centered p, .dw-tool-hero p, #upload-instructions, .waffle-intro) {
+  color: var(--colors-brand-white, #ffffff) !important;
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) :is(.step-header h1, .step-header--upload h1, .step-header--centered h1, .dw-tool-hero h1, .dw-treemap-title, .waffle-title) {
+    color: var(--colors-brand-white, #ffffff) !important;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  :root:not([data-dw-theme="light"]) :is(.step-header p, .step-header--upload p, .step-header--centered p, .dw-tool-hero p, #upload-instructions, .waffle-intro) {
+    color: var(--colors-brand-white, #ffffff) !important;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="./assets/dw-tool-shell.css">
 </head>
-
 <body>
-    <div class="container">
-        <h2>DW Waffle Chart GeoJSON Generator</h2>
-            
-            <p>Please paste a list of IDs in the text field below.<br>There should be one row for each ID.<br>Each ID
-                will be assigned to a square of the waffle chart.</p>
-            <textarea id="idsInput" rows="5" cols="50" placeholder="Paste list of IDs here..." style="width:100%;box-sizing:border-box;"></textarea>
+  <div class="waffle-tool dw-tool-shell">
+    <header aria-label="Deutsche Welle" class="dw-header-minimal dw-header-minimal--light">
+      <div class="dw-header-minimal__inner">
+        <div class="dw-header-minimal__brand" aria-hidden="true">
+          <svg aria-hidden="true" class="dw-header-minimal__logo" viewBox="-1 -1 105.32 61.04" focusable="false">
+            <path d="M73.8,0A29.42,29.42,0,0,0,51.66,10a29.52,29.52,0,1,0,0,39A29.52,29.52,0,1,0,73.8,0m-26,43.51a23,23,0,1,1,4.75-14,23,23,0,0,1-4.75,14M86,40.06H79.73L75.64,29.65l-.11-.29-4.12,10.7h-6.2L58.76,19h7l3,10.62.1.36L73,19h5.14l4,10.63.13.35,0-.18L85.36,19h7ZM30.59,17.71h-13V41.33h13C37.2,41.33,44,37.45,44,29.52S37.2,17.71,30.59,17.71M30.1,34.19h-5V24.85h5c4.25,0,5.77,2.2,5.77,4.67s-1.51,4.67-5.77,4.67" fill="currentColor"></path>
+          </svg>
+          <span class="dw-header-minimal__label"></span>
+        </div>
+      </div>
+    </header>
 
-            <div class="controls">
-                <div class="control-group">
-                    <label>Rows: <input type="number" id="rowsInput" min="1" step="1" value="5"></label>
-                    <label>Columns: <input type="number" id="colsInput" min="1" step="1" value="5"></label>
-                </div>
-                <div class="control-group">
-                    <label for="horizontalFill">Horizontal Fill:</label>
-                    <select id="horizontalFill">
-                        <option value="ltr">Left to Right</option>
-                        <option value="rtl">Right to Left</option>
-                    </select>
-                    <label for="verticalFill">Vertical Fill:</label>
-                    <select id="verticalFill">
-                        <option value="ttb">Top to Bottom</option>
-                        <option value="btt">Bottom to Top</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>Fill Order:
-                        <select id="fillOrder">
-                            <option value="rowsFirst">Along rows</option>
-                            <option value="colsFirst">Along columns</option>
-                        </select>
-                    </label>
-                </div>
+    <main class="waffle-main dw-tool-shell__main">
+      <section class="waffle-hero dw-tool-hero" aria-labelledby="waffle-title">
+        <h1 id="waffle-title" class="waffle-title dw-tool-title">DW Waffle Chart GeoJSON Generator</h1>
+        <p class="waffle-intro dw-tool-intro">Add your list of IDs in the field below. Each ID will correspond to a square on the waffle chart. You can customize how the IDs are assigned to rows and columns at the bottom.</p>
+      </section>
+
+      <section class="waffle-layout dw-tool-grid" aria-label="Waffle chart generator">
+        <form class="waffle-form dw-tool-grid__left" id="waffle-form" novalidate>
+          <div class="waffle-field">
+            <label class="dw-input-text" for="ids-input">
+              <span class="dw-input-text__label">Label</span>
+              <textarea class="dw-input-text__control waffle-textarea" id="ids-input" name="ids" rows="5" maxlength="4000" aria-describedby="ids-counter waffle-status"></textarea>
+            </label>
+            <div class="waffle-counter" id="ids-counter">0/200</div>
+          </div>
+
+          <div class="waffle-grid-controls">
+            <div class="waffle-field dw-input-dropdown">
+              <label class="dw-input-dropdown__label" for="rows-input">Rows</label>
+              <div class="dw-input-dropdown__field">
+                <select class="dw-input-dropdown__control" id="rows-input" name="rows"></select>
+                <span class="dw-input-dropdown__icon" aria-hidden="true"></span>
+              </div>
             </div>
-            <button onclick="generateWaffleChart()">Generate Waffle Chart</button>
-            <a id="downloadLink" style="display:none">Download GeoJSON</a>
-            <div id="wafflePreview" style="margin-top:20px;"></div>
-    </div>
-    <script>
+            <div class="waffle-field dw-input-dropdown">
+              <label class="dw-input-dropdown__label" for="cols-input">Columns</label>
+              <div class="dw-input-dropdown__field">
+                <select class="dw-input-dropdown__control" id="cols-input" name="columns"></select>
+                <span class="dw-input-dropdown__icon" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
 
-        function generateWaffleChart() {
-            // grab and sanitize the list of IDs (remove empty lines)
-            let ids = document.getElementById('idsInput').value.split(/\n/).map(s => s.trim());
-            ids = ids.filter(s => s !== '');
+          <fieldset class="waffle-choice-fieldset" aria-labelledby="horizontal-fill-label">
+            <legend class="dw-fieldset__legend" id="horizontal-fill-label">Horizontal fill</legend>
+            <div class="dw-input-choice-chips waffle-choice-chip-list" role="radiogroup" aria-label="Horizontal fill direction">
+              <button class="dw-input-choice-chips__chip is-active" type="button" role="radio" aria-checked="true" tabindex="0" data-control="horizontal-fill" data-value="ltr">
+                <span class="dw-input-choice-chips__label">Left to right</span>
+              </button>
+              <button class="dw-input-choice-chips__chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-control="horizontal-fill" data-value="rtl">
+                <span class="dw-input-choice-chips__label">Right to left</span>
+              </button>
+            </div>
+          </fieldset>
 
-            const rows = parseInt(document.getElementById('rowsInput').value);
-            const cols = parseInt(document.getElementById('colsInput').value);
-            const horizontalFill = document.getElementById('horizontalFill').value;
-            const verticalFill = document.getElementById('verticalFill').value;
-            const fillOrder = document.getElementById('fillOrder').value;
+          <fieldset class="waffle-choice-fieldset" aria-labelledby="vertical-fill-label">
+            <legend class="dw-fieldset__legend" id="vertical-fill-label">Vertical fill</legend>
+            <div class="dw-input-choice-chips waffle-choice-chip-list" role="radiogroup" aria-label="Vertical fill direction">
+              <button class="dw-input-choice-chips__chip is-active" type="button" role="radio" aria-checked="true" tabindex="0" data-control="vertical-fill" data-value="ttb">
+                <span class="dw-input-choice-chips__label">Top to bottom</span>
+              </button>
+              <button class="dw-input-choice-chips__chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-control="vertical-fill" data-value="btt">
+                <span class="dw-input-choice-chips__label">Bottom to top</span>
+              </button>
+            </div>
+          </fieldset>
 
-            // validate that we have enough cells for the provided IDs
-            const totalCells = rows * cols;
-            if (ids.length > totalCells) {
-                alert(`Too many IDs (${ids.length}) for ${totalCells} cells. Increase rows or columns.`);
-                return;
-            }
+          <fieldset class="waffle-choice-fieldset" aria-labelledby="fill-order-label">
+            <legend class="dw-fieldset__legend" id="fill-order-label">Fill order</legend>
+            <div class="dw-input-choice-chips waffle-choice-chip-list" role="radiogroup" aria-label="Fill order">
+              <button class="dw-input-choice-chips__chip is-active" type="button" role="radio" aria-checked="true" tabindex="0" data-control="fill-order" data-value="rowsFirst">
+                <span class="dw-input-choice-chips__label">Along rows</span>
+              </button>
+              <button class="dw-input-choice-chips__chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-control="fill-order" data-value="colsFirst">
+                <span class="dw-input-choice-chips__label">Along columns</span>
+              </button>
+            </div>
+          </fieldset>
 
-            const grid = [];
-            let index = 0;
+          <div class="waffle-actions dw-tool-actions">
+            <button class="dw-interaction-button dw-interaction-button--primary" id="generate-button" type="submit" disabled>
+              <span class="dw-interaction-button__label">Generate Waffle Chart</span>
+              <span class="dw-interaction-button__icon dw-interaction-button__icon--end" aria-hidden="true">
+              <svg class="waffle-reset-icon dw-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.158 8.66252L3.6465 9.90827C3.6135 9.81752 3.564 9.59477 3.531 9.47102C3.44025 9.07502 3.399 8.67902 3.399 8.25002C3.399 5.51927 5.61825 3.30002 8.349 3.30002C9.06675 3.30002 9.74325 3.45677 10.362 3.72902L11.1953 2.30177C10.329 1.88927 9.372 1.65002 8.349 1.65002C4.71075 1.65002 1.749 4.61177 1.749 8.25002C1.749 8.97602 1.88925 9.61952 2.112 10.2713C2.15325 10.4033 2.2605 10.6343 2.35125 10.7993L0.990002 10.5848L0.833252 12.2265L4.19925 12.5565L5.66775 9.35552L4.16625 8.67077L4.158 8.66252Z" fill="currentColor"/>
+                <path d="M15.8978 4.37251L12.54 3.96826L10.9973 7.13626L12.4823 7.86226L13.0185 6.54226C13.2578 7.05376 13.299 7.68901 13.299 8.25826C13.299 10.989 11.0798 13.2083 8.34902 13.2083C7.68077 13.2083 7.05377 13.0763 6.46802 12.837L5.63477 14.2725C6.45977 14.652 7.38377 14.8665 8.34902 14.8665C11.9873 14.8665 14.949 11.9048 14.949 8.26651C14.949 7.59001 14.8335 6.93826 14.6355 6.31951C14.586 6.17101 14.4788 5.96476 14.421 5.82451L15.6915 6.03076L15.8895 4.38901L15.8978 4.37251Z" fill="currentColor"/>
+              </svg>
+              </span>
+            </button>
+          </div>
+          <p class="waffle-status" id="waffle-status" aria-live="polite"></p>
 
-            if (fillOrder === 'rowsFirst') {
-                for (let r = 0; r < rows; r++) {
-                    for (let c = 0; c < cols; c++) {
-                        let row = verticalFill === 'btt' ? rows - 1 - r : r;
-                        let col = horizontalFill === 'rtl' ? cols - 1 - c : c;
+        </form>
 
-                        if (!grid[row]) grid[row] = [];
-                        grid[row][col] = ids[index] || '';
-                        index++;
-                    }
-                }
-            } else { // downFirst
-                for (let c = 0; c < cols; c++) {
-                    for (let r = 0; r < rows; r++) {
-                        let row = verticalFill === 'btt' ? rows - 1 - r : r;
-                        let col = horizontalFill === 'rtl' ? cols - 1 - c : c;
+        <aside class="waffle-output dw-tool-grid__right" id="waffle-output" data-mode="sample" aria-label="Output preview">
+          <figure class="waffle-sample">
+            <img src="./assets/sample-waffle.svg" alt="Sample visualization generated with data from Waffle Chart Generator and Datawrapper">
+            <figcaption>Sample Image: Visualization generated with data from Waffle Chart Generator and Datawrapper</figcaption>
+          </figure>
 
-                        if (!grid[row]) grid[row] = [];
-                        grid[row][col] = ids[index] || '';
-                        index++;
-                    }
-                }
-            }
+          <div class="waffle-preview-wrap" id="waffle-preview-wrap" aria-live="polite">
+            <h2 class="visually-hidden">Generated waffle chart preview</h2>
+            <div class="waffle-preview" id="waffle-preview" style="--waffle-cols: 5;"></div>
+          </div>
 
+          <div class="waffle-download-action dw-tool-actions">
+            <a class="dw-interaction-button dw-interaction-button--primary" id="download-link" href="#" download="waffle-chart.geojson">
+              <span class="dw-interaction-button__label">Download GeoJSON</span>
+              <span class="dw-interaction-button__icon dw-interaction-button__icon--end" aria-hidden="true">
+              <svg class="waffle-download-icon dw-icon" viewBox="0 0 24 24" focusable="false">
+                <path d="M11 3h2v10.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6V3Zm-6 16h14v2H5v-2Z" fill="currentColor"/>
+              </svg>
+              </span>
+            </a>
+          </div>
+        </aside>
 
-            const preview = document.getElementById('wafflePreview');
-            preview.innerHTML = '';
-            for (let r = 0; r < rows; r++) {
-                const rowDiv = document.createElement('div');
-                rowDiv.style.display = 'flex';
-                for (let c = 0; c < cols; c++) {
-                    const cell = document.createElement('div');
-                    cell.style.width = '30px';
-                    cell.style.height = '30px';
-                    cell.style.border = '1px solid #000';
-                    cell.style.display = 'flex';
-                    cell.style.alignItems = 'center';
-                    cell.style.justifyContent = 'center';
-                    cell.style.fontSize = '10px';
-                    cell.textContent = grid[r][c];
-                    rowDiv.appendChild(cell);
-                }
-                preview.appendChild(rowDiv);
-            }
+        <p class="waffle-contact dw-tool-grid__full">If you have any further questions or feedback about the tool, contact us at <a class="dw-interaction-link" href="mailto:data-team@dw.com">data-team@dw.com</a>.</p>
+      </section>
+    </main>
 
-            const geojson = {
-                type: "FeatureCollection",
-                features: []
-            };
+    <footer class="dw-navigation-footer-slim">
+      <nav class="dw-navigation-footer-slim__nav" aria-label="Footer navigation">
+        <ul class="dw-navigation-footer-slim__list">
+          <li class="dw-navigation-footer-slim__item dw-navigation-footer-slim__item--meta"><span class="dw-navigation-footer-slim__meta-copy">&copy;&nbsp;<span data-footer-year="">2026</span>&nbsp;Deutsche Welle</span></li>
+          <li class="dw-navigation-footer-slim__item"><a class="dw-navigation-footer-slim__link" href="#datenschutz">Datenschutz</a></li>
+          <li class="dw-navigation-footer-slim__item"><a class="dw-navigation-footer-slim__link" href="#impressum">Impressum</a></li>
+          <li class="dw-navigation-footer-slim__item"><a class="dw-navigation-footer-slim__link" href="#erklaerung-zur-barrierefreiheit">Erklärung zur Barrierefreiheit</a></li>
+          <li class="dw-navigation-footer-slim__item"><a class="dw-navigation-footer-slim__link" href="#datenschutzeinstellungen">Datenschutzeinstellungen</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
 
-            // Set the total longitude span
-            const maxLongitudeSpan = 6.0;
+  <script>
+    (() => {
+      const maxIds = 200;
+      const maxDimension = 20;
+      const maxLongitudeSpan = 6.0;
 
-            // Calculate cell dimensions
-            const cellWidth = maxLongitudeSpan / cols;
-            const cellHeight = cellWidth; // Keep cells square
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    const id = grid[r][c];
+      const state = {
+        horizontalFill: 'ltr',
+        verticalFill: 'ttb',
+        fillOrder: 'rowsFirst',
+        downloadUrl: null,
+        hasGenerated: false
+      };
 
-                    // Invert row for geographic coordinates (top = higher lat)
-                    const invertedRow = rows - 1 - r;
+      const form = document.getElementById('waffle-form');
+      const idsInput = document.getElementById('ids-input');
+      const idsCounter = document.getElementById('ids-counter');
+      const rowsInput = document.getElementById('rows-input');
+      const colsInput = document.getElementById('cols-input');
+      const generateButton = document.getElementById('generate-button');
+      const statusEl = document.getElementById('waffle-status');
+      const outputEl = document.getElementById('waffle-output');
+      const previewEl = document.getElementById('waffle-preview');
+      const downloadLink = document.getElementById('download-link');
+      document.querySelectorAll('[data-footer-year]').forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
 
-                    const lon = c * cellWidth;
-                    const lat = invertedRow * cellHeight;
-
-                    const feature = {
-                        type: "Feature",
-                        properties: { id: id },
-                        geometry: {
-                            type: "Polygon",
-                            coordinates: [[
-                                [lon, lat],
-                                [lon + cellWidth, lat],
-                                [lon + cellWidth, lat + cellHeight],
-                                [lon, lat + cellHeight],
-                                [lon, lat]
-                            ]]
-                        }
-                    };
-
-                    if (id !== '') geojson.features.push(feature);
-                }
-            }
-
-            const geojsonBlob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/json' });
-            const downloadLink = document.getElementById('downloadLink');
-            downloadLink.href = URL.createObjectURL(geojsonBlob);
-            downloadLink.download = 'waffle_chart.geojson';
-            downloadLink.style.display = 'inline';
+      function populateDimensionSelect(selectEl, defaultValue) {
+        const fragment = document.createDocumentFragment();
+        for (let value = 1; value <= maxDimension; value += 1) {
+          const option = document.createElement('option');
+          option.value = String(value);
+          option.textContent = String(value);
+          if (value === defaultValue) option.selected = true;
+          fragment.appendChild(option);
         }
-    </script>
-</body>
+        selectEl.appendChild(fragment);
+      }
 
+      function getIds() {
+        return idsInput.value
+          .split(/\r?\n/)
+          .map((value) => value.trim())
+          .filter(Boolean)
+          .slice(0, maxIds + 1);
+      }
+
+      function getGridSettings() {
+        return {
+          rows: Number.parseInt(rowsInput.value, 10),
+          cols: Number.parseInt(colsInput.value, 10),
+          horizontalFill: state.horizontalFill,
+          verticalFill: state.verticalFill,
+          fillOrder: state.fillOrder
+        };
+      }
+
+      function setStatus(message, statusState = '') {
+        statusEl.textContent = message;
+        if (statusState) {
+          statusEl.dataset.state = statusState;
+        } else {
+          delete statusEl.dataset.state;
+        }
+      }
+
+      function updateButtonStyle(generated) {
+        generateButton.classList.toggle('dw-interaction-button--primary', !generated);
+        generateButton.classList.toggle('dw-interaction-button--secondary', generated);
+      }
+
+      function revokeDownloadUrl() {
+        if (state.downloadUrl) {
+          URL.revokeObjectURL(state.downloadUrl);
+          state.downloadUrl = null;
+        }
+      }
+
+      function resetOutput() {
+        revokeDownloadUrl();
+        state.hasGenerated = false;
+        outputEl.dataset.mode = 'sample';
+        previewEl.innerHTML = '';
+        downloadLink.removeAttribute('href');
+        updateButtonStyle(false);
+      }
+
+      function updateValidity({ reset = false } = {}) {
+        const ids = getIds();
+        const { rows, cols } = getGridSettings();
+        const totalCells = rows * cols;
+        idsCounter.textContent = `${Math.min(ids.length, maxIds)}/${maxIds}`;
+
+        if (reset && state.hasGenerated) {
+          resetOutput();
+        }
+
+        if (ids.length === 0) {
+          generateButton.disabled = true;
+          setStatus('');
+          return;
+        }
+
+        if (ids.length > maxIds) {
+          generateButton.disabled = true;
+          setStatus(`Too many IDs. The current limit is ${maxIds}.`, 'error');
+          return;
+        }
+
+        if (ids.length > totalCells) {
+          generateButton.disabled = true;
+          setStatus(`Too many IDs (${ids.length}) for ${totalCells} cells. Increase rows or columns.`, 'error');
+          return;
+        }
+
+        generateButton.disabled = false;
+        setStatus('');
+      }
+
+      function createGrid(ids, rows, cols, horizontalFill, verticalFill, fillOrder) {
+        const grid = Array.from({ length: rows }, () => Array.from({ length: cols }, () => ''));
+        let index = 0;
+
+        if (fillOrder === 'rowsFirst') {
+          for (let r = 0; r < rows; r += 1) {
+            for (let c = 0; c < cols; c += 1) {
+              const row = verticalFill === 'btt' ? rows - 1 - r : r;
+              const col = horizontalFill === 'rtl' ? cols - 1 - c : c;
+              grid[row][col] = ids[index] || '';
+              index += 1;
+            }
+          }
+        } else {
+          for (let c = 0; c < cols; c += 1) {
+            for (let r = 0; r < rows; r += 1) {
+              const row = verticalFill === 'btt' ? rows - 1 - r : r;
+              const col = horizontalFill === 'rtl' ? cols - 1 - c : c;
+              grid[row][col] = ids[index] || '';
+              index += 1;
+            }
+          }
+        }
+
+        return grid;
+      }
+
+      function renderPreview(grid, rows, cols) {
+        previewEl.innerHTML = '';
+        previewEl.style.setProperty('--waffle-cols', String(cols));
+        previewEl.setAttribute('aria-label', `${rows} by ${cols} waffle chart preview`);
+
+        const fragment = document.createDocumentFragment();
+        for (let r = 0; r < rows; r += 1) {
+          for (let c = 0; c < cols; c += 1) {
+            const value = grid[r][c];
+            const cell = document.createElement('div');
+            cell.className = 'waffle-preview-cell';
+            cell.dataset.filled = value ? 'true' : 'false';
+            cell.textContent = value;
+            if (value) cell.title = value;
+            fragment.appendChild(cell);
+          }
+        }
+        previewEl.appendChild(fragment);
+      }
+
+      function createGeoJson(grid, rows, cols) {
+        const geojson = {
+          type: 'FeatureCollection',
+          features: []
+        };
+
+        const cellWidth = maxLongitudeSpan / cols;
+        const cellHeight = cellWidth;
+
+        for (let r = 0; r < rows; r += 1) {
+          for (let c = 0; c < cols; c += 1) {
+            const id = grid[r][c];
+            if (!id) continue;
+
+            const invertedRow = rows - 1 - r;
+            const lon = c * cellWidth;
+            const lat = invertedRow * cellHeight;
+
+            geojson.features.push({
+              type: 'Feature',
+              properties: { id },
+              geometry: {
+                type: 'Polygon',
+                coordinates: [[
+                  [lon, lat],
+                  [lon + cellWidth, lat],
+                  [lon + cellWidth, lat + cellHeight],
+                  [lon, lat + cellHeight],
+                  [lon, lat]
+                ]]
+              }
+            });
+          }
+        }
+
+        return geojson;
+      }
+
+      function generateWaffleChart() {
+        const ids = getIds();
+        const { rows, cols, horizontalFill, verticalFill, fillOrder } = getGridSettings();
+        const totalCells = rows * cols;
+
+        if (ids.length === 0 || ids.length > maxIds || ids.length > totalCells) {
+          updateValidity();
+          return;
+        }
+
+        const grid = createGrid(ids, rows, cols, horizontalFill, verticalFill, fillOrder);
+        const geojson = createGeoJson(grid, rows, cols);
+        const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' });
+
+        revokeDownloadUrl();
+        state.downloadUrl = URL.createObjectURL(blob);
+        state.hasGenerated = true;
+
+        downloadLink.href = state.downloadUrl;
+        downloadLink.download = 'waffle-chart.geojson';
+        renderPreview(grid, rows, cols);
+        outputEl.dataset.mode = 'generated';
+        updateButtonStyle(true);
+        setStatus(`GeoJSON generated with ${geojson.features.length} feature${geojson.features.length === 1 ? '' : 's'}.`);
+      }
+
+      function setChoice(control, value, { focus = false } = {}) {
+        if (control === 'horizontal-fill') state.horizontalFill = value;
+        if (control === 'vertical-fill') state.verticalFill = value;
+        if (control === 'fill-order') state.fillOrder = value;
+
+        const groupChips = document.querySelectorAll(`.dw-input-choice-chips__chip[data-control="${control}"]`);
+        groupChips.forEach((chip) => {
+          const isSelected = chip.dataset.value === value;
+          chip.classList.toggle('is-active', isSelected);
+          chip.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+          chip.tabIndex = isSelected ? 0 : -1;
+          if (focus && isSelected) chip.focus();
+        });
+
+        updateValidity({ reset: true });
+      }
+
+      function handleChoiceClick(event) {
+        const chipEl = event.target.closest('.dw-input-choice-chips__chip[data-control][data-value]');
+        if (!chipEl || chipEl.getAttribute('aria-disabled') === 'true') return;
+        setChoice(chipEl.dataset.control, chipEl.dataset.value);
+      }
+
+      function handleChoiceKeydown(event) {
+        const chipEl = event.target.closest('.dw-input-choice-chips__chip[data-control][data-value]');
+        if (!chipEl) return;
+
+        const isHorizontal = event.key === 'ArrowRight' || event.key === 'ArrowLeft';
+        const isVertical = event.key === 'ArrowDown' || event.key === 'ArrowUp';
+        if (!isHorizontal && !isVertical) return;
+
+        const chips = Array.from(document.querySelectorAll(`.dw-input-choice-chips__chip[data-control="${chipEl.dataset.control}"]`));
+        const currentIndex = chips.indexOf(chipEl);
+        if (currentIndex < 0) return;
+
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1;
+        const nextIndex = (currentIndex + direction + chips.length) % chips.length;
+        const nextChip = chips[nextIndex];
+        setChoice(nextChip.dataset.control, nextChip.dataset.value, { focus: true });
+      }
+
+      populateDimensionSelect(rowsInput, 5);
+      populateDimensionSelect(colsInput, 5);
+      updateValidity();
+
+      idsInput.addEventListener('input', () => updateValidity({ reset: true }));
+      rowsInput.addEventListener('change', () => updateValidity({ reset: true }));
+      colsInput.addEventListener('change', () => updateValidity({ reset: true }));
+      document.addEventListener('click', handleChoiceClick);
+      document.addEventListener('keydown', handleChoiceKeydown);
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        generateWaffleChart();
+      });
+      window.addEventListener('beforeunload', revokeDownloadUrl);
+    })();
+  </script>
+</body>
 </html>

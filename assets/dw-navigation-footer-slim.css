@@ -1,0 +1,167 @@
+/*
+  dw-navigation-footer-slim.css
+  Schlanker DW-Footer auf Basis der kanonischen dw-base.css.
+
+  Stand v6:
+  - Footer nutzt die gewünschte Pangea-Text-Anmutung für Links:
+    letter-spacing: normal;
+    font-weight: 600;
+    font-variation-settings: "ital" var(--pangea-italic, 0), "opsz" var(--pangea-opsz, 10);
+  - Copyright bleibt CopyrightInfo:
+    italic nur via font-variation-settings, Gewicht 400
+  - kein Dark Mode für die Komponente
+  - Visited nutzt var(--link-visited-color, #5C718A)
+  - Beispiel- und Demo-Links haben eindeutige hrefs
+*/
+
+.dw-navigation-footer-slim {
+  --dw-footer-padding-inline: calc(2 * (375px / var(--dw-grid-columns, 30)));
+  --dw-footer-padding-block: var(--dw-space-2, 2rem);
+  --dw-footer-separator-gap: var(--dw-space-0-5, 0.5rem);
+
+  --dw-footer-bg: var(--colors-bluegrays-dark-blue-grey-02, #000821);
+  --dw-footer-link-color: var(--colors-brand-white, #fff);
+  --dw-footer-link-visited-color: var(--link-visited-color, #5C718A);
+  --dw-footer-meta-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-footer-separator-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+
+  --dw-footer-link-font-size: var(--dw-font-size-minus-1);
+  --dw-footer-meta-font-size: var(--dw-font-size-minus-1);
+  --dw-footer-line-height: var(--dw-line-height-copy, 1.4);
+
+  width: 100%;
+  padding-block: var(--dw-footer-padding-block);
+  padding-inline: var(--dw-footer-padding-inline);
+  background: var(--dw-footer-bg);
+  color: var(--dw-footer-link-color);
+  font-family: var(--dw-font-family-text, "Pangea", Arial, sans-serif);
+  box-sizing: border-box;
+}
+
+.dw-navigation-footer-slim__nav {
+  width: 100%;
+}
+
+.dw-navigation-footer-slim__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-navigation-footer-slim__item {
+  --pangea-italic: 0;
+  --pangea-opsz: 10;
+
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--dw-font-family-text, "Pangea", Arial, sans-serif);
+  font-size: var(--dw-footer-link-font-size);
+  line-height: var(--dw-footer-line-height);
+  font-weight: 600;
+  letter-spacing: normal;
+  font-variation-settings: "ital" var(--pangea-italic, 0), "opsz" var(--pangea-opsz, 10);
+}
+
+.dw-navigation-footer-slim__item--meta {
+  --pangea-italic: 1;
+  --pangea-opsz: 10;
+
+  color: var(--dw-footer-meta-color);
+  font-size: var(--dw-footer-meta-font-size);
+  font-weight: 400;
+  letter-spacing: normal;
+  font-variation-settings: "ital" var(--pangea-italic, 1), "opsz" var(--pangea-opsz, 10);
+}
+
+.dw-navigation-footer-slim__item:not(:last-child)::after {
+  content: "|";
+  margin-inline: var(--dw-footer-separator-gap);
+  color: var(--dw-footer-separator-color);
+  font-weight: 600;
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-navigation-footer-slim__link:any-link {
+  --pangea-italic: 0;
+  --pangea-opsz: 10;
+
+  color: var(--dw-footer-link-color);
+  -webkit-text-fill-color: var(--dw-footer-link-color);
+  text-decoration: none;
+  text-decoration-color: currentColor;
+  font-family: var(--dw-font-family-text, "Pangea", Arial, sans-serif);
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 600;
+  letter-spacing: normal;
+  font-variation-settings: "ital" var(--pangea-italic, 0), "opsz" var(--pangea-opsz, 10);
+}
+
+.dw-navigation-footer-slim__link:visited {
+  color: var(--dw-footer-link-visited-color);
+  -webkit-text-fill-color: var(--dw-footer-link-visited-color);
+  text-decoration: none;
+  text-decoration-color: currentColor;
+}
+
+.dw-navigation-footer-slim__link:hover,
+.dw-navigation-footer-slim__link:active {
+  color: var(--dw-footer-link-color);
+  -webkit-text-fill-color: var(--dw-footer-link-color);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.14em;
+}
+
+.dw-navigation-footer-slim__link:visited:hover,
+.dw-navigation-footer-slim__link:visited:active {
+  color: var(--dw-footer-link-visited-color);
+  -webkit-text-fill-color: var(--dw-footer-link-visited-color);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.14em;
+}
+
+.dw-navigation-footer-slim__link:focus-visible {
+  color: var(--dw-footer-link-color);
+  -webkit-text-fill-color: var(--dw-footer-link-color);
+  outline: 2px solid var(--colors-accent-accent-green, #63de9d);
+  outline-offset: 2px;
+}
+
+@media (min-width: 600px) {
+  .dw-navigation-footer-slim {
+    --dw-footer-padding-inline: calc(2 * (600px / var(--dw-grid-columns, 30)));
+    --dw-footer-link-font-size: var(--dw-font-size-minus-1);
+    --dw-footer-meta-font-size: var(--dw-font-size-minus-1);
+  }
+}
+
+@media (min-width: 768px) {
+  .dw-navigation-footer-slim {
+    --dw-footer-padding-inline: calc(2 * (768px / var(--dw-grid-columns, 30)));
+    --dw-footer-link-font-size: var(--dw-font-size-base);
+    --dw-footer-meta-font-size: var(--dw-font-size-minus-1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dw-navigation-footer-slim {
+    --dw-footer-padding-inline: calc(2 * (1024px / var(--dw-grid-columns, 30)));
+    --dw-footer-link-font-size: var(--dw-font-size-base);
+    --dw-footer-meta-font-size: var(--dw-font-size-minus-1);
+  }
+}
+
+@media (min-width: 1440px) {
+  .dw-navigation-footer-slim {
+    --dw-footer-padding-inline: calc(2 * (1440px / var(--dw-grid-columns, 30)));
+    --dw-footer-link-font-size: var(--dw-font-size-base);
+    --dw-footer-meta-font-size: var(--dw-font-size-minus-1);
+  }
+}

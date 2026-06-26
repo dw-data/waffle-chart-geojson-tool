@@ -1,0 +1,376 @@
+/*
+  dw-input-checkbox.css
+  DW Checkbox auf Basis von dw-base.css.
+
+  Korrigierter Stand:
+  - diagonaler Inactive-Strich sichtbar und zentriert
+  - Haken nutzt currentColor
+  - Haken im Dark Mode weiß
+*/
+
+.dw-input-checkbox {
+  --dw-input-checkbox-gap-label-options: 1rem;
+  --dw-input-checkbox-gap-option-block: 1rem;
+  --dw-input-checkbox-gap-control-text: 0.5rem;
+  --dw-input-checkbox-control-size: 22px;
+  --dw-input-checkbox-control-border-width: 2px;
+  --dw-input-checkbox-control-radius: 0;
+  --dw-input-checkbox-check-size: 14px;
+
+  --dw-input-checkbox-label-color: var(--font-colors-info-form-label-info);
+  --dw-input-checkbox-label-size: var(--dw-font-size-base);
+  --dw-input-checkbox-label-weight: var(--dw-font-weight-medium);
+
+  --dw-input-checkbox-text-color: var(--font-colors-input-input-text);
+  --dw-input-checkbox-text-size: var(--dw-font-size-base);
+  --dw-input-checkbox-text-weight: var(--dw-font-weight-regular);
+  --dw-input-checkbox-text-inactive-color: var(--fonts-prio-4);
+
+  --dw-input-checkbox-box-bg: var(--greys-white, #fff);
+  --dw-input-checkbox-box-border: var(--input-state-borders-default-1);
+  --dw-input-checkbox-box-hover-border: var(--input-state-borders-input-hover);
+  --dw-input-checkbox-box-focus-ring: var(--input-state-borders-focus);
+  --dw-input-checkbox-box-error: var(--input-state-borders-error);
+  --dw-input-checkbox-box-inactive: var(--input-state-borders-inactive);
+
+  --dw-input-checkbox-box-checked-bg: var(--greys-white, #fff);
+  --dw-input-checkbox-box-checked-border: var(--input-state-borders-active);
+  --dw-input-checkbox-check-color: var(--input-state-borders-active);
+}
+
+[data-dw-theme="dark"] .dw-input-checkbox {
+  --dw-input-checkbox-box-bg: var(--backgrounds-bg-1);
+  --dw-input-checkbox-box-checked-bg: var(--backgrounds-bg-1);
+  --dw-input-checkbox-check-color: var(--colors-brand-white, #fff);
+}
+
+.dw-input-checkbox {
+  display: grid;
+  gap: var(--dw-input-checkbox-gap-label-options);
+  width: 100%;
+}
+
+.dw-input-checkbox__label {
+  margin: 0;
+  color: var(--dw-input-checkbox-label-color);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-checkbox-label-size);
+  line-height: 1.1;
+  font-weight: var(--dw-input-checkbox-label-weight);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-checkbox__options {
+  display: grid;
+  gap: var(--dw-input-checkbox-gap-option-block);
+}
+
+.dw-input-checkbox__option {
+  display: inline-flex;
+  align-items: center;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.dw-input-checkbox__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dw-input-checkbox-gap-control-text);
+  cursor: pointer;
+  position: relative;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.dw-input-checkbox__input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+.dw-input-checkbox__control {
+  position: relative;
+  flex: 0 0 auto;
+  inline-size: var(--dw-input-checkbox-control-size);
+  block-size: var(--dw-input-checkbox-control-size);
+  border: var(--dw-input-checkbox-control-border-width) solid var(--dw-input-checkbox-box-border);
+  border-radius: var(--dw-input-checkbox-control-radius);
+  background: var(--dw-input-checkbox-box-bg);
+  color: var(--dw-input-checkbox-check-color);
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  overflow: visible;
+  transition:
+    border-color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard),
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-checkbox__control::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  inline-size: var(--dw-input-checkbox-check-size);
+  block-size: var(--dw-input-checkbox-check-size);
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M4.77402%2011.452L1.40002%208.26698L2.35902%207.25198L4.70402%209.46398L11.494%202.09998L12.523%203.05198L4.77402%2011.452Z%22%20fill%3D%22%23002186%22/%3E%0A%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M4.77402%2011.452L1.40002%208.26698L2.35902%207.25198L4.70402%209.46398L11.494%202.09998L12.523%203.05198L4.77402%2011.452Z%22%20fill%3D%22%23002186%22/%3E%0A%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  opacity: 0;
+  z-index: 1;
+  transition:
+    opacity var(--dw-duration-fast) var(--dw-ease-standard),
+    background-color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-checkbox__control::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  inline-size: calc(var(--dw-input-checkbox-control-size) * 1.35);
+  block-size: 2px;
+  background: var(--dw-input-checkbox-box-inactive);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-checkbox__text {
+  margin: 0;
+  color: var(--dw-input-checkbox-text-color);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-checkbox-text-size);
+  line-height: 1.1;
+  font-weight: var(--dw-input-checkbox-text-weight);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-checkbox__choice:hover .dw-input-checkbox__control,
+  .dw-input-checkbox__option.is-hover .dw-input-checkbox__control {
+    border-color: var(--dw-input-checkbox-box-hover-border);
+  }
+}
+
+.dw-input-checkbox__input:focus-visible + .dw-input-checkbox__control,
+.dw-input-checkbox__option.is-focus .dw-input-checkbox__control {
+  box-shadow: 0 0 0 2px var(--dw-input-checkbox-box-focus-ring);
+}
+
+.dw-input-checkbox__option:has(.dw-input-checkbox__input:checked) .dw-input-checkbox__control,
+.dw-input-checkbox__option.is-checked .dw-input-checkbox__control {
+  background: var(--dw-input-checkbox-box-checked-bg);
+  border-color: var(--dw-input-checkbox-box-checked-border);
+  color: var(--dw-input-checkbox-check-color);
+}
+
+.dw-input-checkbox__option:has(.dw-input-checkbox__input:checked) .dw-input-checkbox__control::before,
+.dw-input-checkbox__option.is-checked .dw-input-checkbox__control::before {
+  opacity: 1;
+}
+
+.dw-input-checkbox__option:has(.dw-input-checkbox__input:checked) .dw-input-checkbox__control::after,
+.dw-input-checkbox__option.is-checked .dw-input-checkbox__control::after {
+  opacity: 0;
+}
+
+.dw-input-checkbox__option.is-error .dw-input-checkbox__control {
+  border-color: var(--dw-input-checkbox-box-error);
+  color: var(--dw-input-checkbox-box-error);
+}
+
+.dw-input-checkbox__option.is-error.is-checked .dw-input-checkbox__control {
+  background: var(--dw-input-checkbox-box-checked-bg);
+  border-color: var(--dw-input-checkbox-box-error);
+}
+
+.dw-input-checkbox__option.is-inactive .dw-input-checkbox__choice {
+  cursor: default;
+  pointer-events: none;
+}
+
+.dw-input-checkbox__option.is-inactive .dw-input-checkbox__control {
+  border-color: var(--dw-input-checkbox-box-inactive);
+  color: var(--dw-input-checkbox-box-inactive);
+}
+
+.dw-input-checkbox__option.is-inactive:not(.is-checked) .dw-input-checkbox__control::after {
+  opacity: 1;
+}
+
+.dw-input-checkbox__option.is-inactive.is-checked .dw-input-checkbox__control {
+  background: var(--dw-input-checkbox-box-bg);
+  border-color: var(--dw-input-checkbox-box-inactive);
+  color: var(--dw-input-checkbox-box-inactive);
+}
+
+.dw-input-checkbox__option.is-inactive.is-checked .dw-input-checkbox__control::before {
+  opacity: 1;
+}
+
+.dw-input-checkbox__option.is-inactive .dw-input-checkbox__text {
+  color: var(--dw-input-checkbox-text-inactive-color);
+}
+
+
+/* Text-Variante */
+.dw-input-checkbox--text .dw-input-checkbox__option {
+  align-items: flex-start;
+}
+
+.dw-input-checkbox__choice-wrap {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.dw-input-checkbox__option--text .dw-input-checkbox__text-wrap {
+  display: block;
+  padding-inline-start: calc(var(--dw-input-checkbox-control-size) + var(--dw-input-checkbox-gap-control-text));
+}
+
+.dw-input-checkbox__text-input {
+  inline-size: min(100%, 21rem);
+  min-block-size: 40px;
+  padding-inline: 12px;
+  border: 1px solid var(--input-state-borders-default-1);
+  background: var(--input-state-fills-default, var(--greys-white, #fff));
+  color: var(--font-colors-input-input-text);
+  border-radius: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: 1.1;
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-checkbox__text-input::placeholder {
+  color: var(--font-colors-input-placeholder);
+  opacity: 1;
+}
+
+.dw-input-checkbox__text-input:focus-visible {
+  outline: none;
+  border-color: var(--input-state-borders-focus);
+  box-shadow: 0 0 0 2px var(--input-state-borders-focus);
+}
+
+.dw-input-checkbox__option.is-inactive .dw-input-checkbox__text-input {
+  pointer-events: none;
+  border-color: var(--dw-input-checkbox-box-inactive);
+  color: var(--dw-input-checkbox-text-inactive-color);
+}
+
+.dw-input-checkbox__option.is-error .dw-input-checkbox__text-input {
+  border-color: var(--input-state-borders-error);
+}
+
+
+/* Verfeinerung Text-Variante:
+   Das Textfeld sitzt direkt neben der Checkbox und ersetzt den Optionstext. */
+.dw-input-checkbox--text .dw-input-checkbox__option {
+  align-items: center;
+}
+
+.dw-input-checkbox--text .dw-input-checkbox__choice-wrap {
+  display: block;
+  width: 100%;
+}
+
+.dw-input-checkbox--text .dw-input-checkbox__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dw-input-checkbox-gap-control-text);
+}
+
+.dw-input-checkbox--text .dw-input-checkbox__text-wrap {
+  display: none;
+}
+
+.dw-input-checkbox__choice-input {
+  inline-size: min(100%, 21rem);
+  min-block-size: 40px;
+  padding-inline: 12px;
+  border: 1px solid var(--input-state-borders-default-1);
+  background: var(--input-state-fills-default, var(--greys-white, #fff));
+  color: var(--font-colors-input-input-text);
+  border-radius: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-font-size-base);
+  line-height: 1.1;
+  font-weight: var(--dw-font-weight-regular);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-checkbox__choice-input::placeholder {
+  color: var(--font-colors-input-placeholder);
+  opacity: 1;
+}
+
+.dw-input-checkbox__choice-input:focus-visible {
+  outline: none;
+  border-color: var(--input-state-borders-focus);
+  box-shadow: 0 0 0 2px var(--input-state-borders-focus);
+}
+
+.dw-input-checkbox__option.is-inactive .dw-input-checkbox__choice-input {
+  pointer-events: none;
+  border-color: var(--dw-input-checkbox-box-inactive);
+  color: var(--dw-input-checkbox-text-inactive-color);
+}
+
+.dw-input-checkbox__option.is-error .dw-input-checkbox__choice-input {
+  border-color: var(--input-state-borders-error);
+}
+
+
+/* ==========================================================================
+   Automatischer Dark-Mode über prefers-color-scheme
+   ========================================================================== */
+
+:root[data-dw-theme="dark"] .dw-input-checkbox {
+  --dw-input-checkbox-box-bg: var(--backgrounds-bg-1);
+  --dw-input-checkbox-box-checked-bg: var(--backgrounds-bg-1);
+  --dw-input-checkbox-check-color: var(--colors-brand-white, #fff);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-checkbox,
+  :root[data-dw-theme="auto"] .dw-input-checkbox {
+    --dw-input-checkbox-box-bg: var(--backgrounds-bg-1);
+    --dw-input-checkbox-box-checked-bg: var(--backgrounds-bg-1);
+    --dw-input-checkbox-check-color: var(--colors-brand-white, #fff);
+  }
+}
+
+
+/* ==========================================================================
+   DW repair pass: text variant input border width
+   ========================================================================== */
+
+.dw-input-checkbox__choice-input {
+  border-width: 2px;
+}
+
+.dw-input-checkbox__option.is-error .dw-input-checkbox__choice-input {
+  border-width: 2px;
+}

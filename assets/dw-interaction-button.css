@@ -1,0 +1,199 @@
+/*
+  dw-interaction-button.css
+  Harmonisiertes Button-Komponenten-CSS auf Basis der finalen DW-Tokens.
+*/
+
+.dw-interaction-button {
+  --dw-interaction-button-font-size: var(--dw-type-button-size);
+  --dw-interaction-button-padding-inline: 1em;
+  --dw-interaction-button-padding-block: 10px;
+  --dw-interaction-button-gap: 0.5em;
+  --dw-interaction-button-radius: var(--dw-radius-button);
+  --dw-interaction-button-icon-size: 1.1em;
+  --dw-interaction-button-icon-only-size: calc(var(--dw-interaction-button-icon-size) + (2 * var(--dw-interaction-button-padding-block)));
+
+  --dw-interaction-button-bg: var(--buttons-state-fills-tertiary-regular);
+  --dw-interaction-button-color: var(--buttons-text-tertiary-regular);
+  --dw-interaction-button-rest-shadow: none;
+  --dw-interaction-button-hover-shadow: none;
+  --dw-interaction-button-focus-inner-shadow: none;
+  --dw-interaction-button-active-bg: var(--buttons-state-fills-active);
+  --dw-interaction-button-active-color: var(--buttons-text-active);
+  --dw-interaction-button-active-shadow: none;
+  --dw-interaction-button-inactive-bg: var(--buttons-state-fills-inactive);
+  --dw-interaction-button-inactive-color: var(--buttons-text-inactive);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dw-interaction-button-gap);
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  min-height: 0;
+  padding-inline: var(--dw-interaction-button-padding-inline);
+  padding-block: var(--dw-interaction-button-padding-block);
+  border: 0;
+  border-radius: var(--dw-interaction-button-radius);
+  background: var(--dw-interaction-button-bg);
+  color: var(--dw-interaction-button-color);
+  box-shadow: var(--dw-interaction-button-rest-shadow);
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: top;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-interaction-button-font-size);
+  font-weight: var(--dw-type-button-weight);
+  line-height: var(--dw-type-button-line-height);
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+  transition:
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-interaction-button__label {
+  display: inline-block;
+  min-inline-size: 0;
+  overflow-wrap: break-word;
+}
+
+.dw-interaction-button__icon {
+  flex: 0 0 auto;
+  inline-size: var(--dw-interaction-button-icon-size);
+  block-size: var(--dw-interaction-button-icon-size);
+  display: inline-grid;
+  place-items: center;
+}
+
+.dw-interaction-button__icon--start { order: -1; }
+.dw-interaction-button__icon--end { order: 1; }
+
+.dw-interaction-button--without-icon {
+  --dw-interaction-button-gap: 0;
+}
+
+.dw-interaction-button--without-icon .dw-interaction-button__icon {
+  display: none;
+}
+
+.dw-interaction-button--compact {
+  --dw-interaction-button-font-size: var(--dw-type-button-size-compact);
+  --dw-interaction-button-padding-inline: 0.5em;
+  --dw-interaction-button-padding-block: 5px;
+  --dw-interaction-button-gap: 0.5em;
+}
+
+.dw-interaction-button--icon-only {
+  --dw-interaction-button-gap: 0;
+  --dw-interaction-button-padding-inline: var(--dw-interaction-button-padding-block);
+
+  inline-size: var(--dw-interaction-button-icon-only-size);
+  min-inline-size: var(--dw-interaction-button-icon-only-size);
+  block-size: var(--dw-interaction-button-icon-only-size);
+  min-block-size: var(--dw-interaction-button-icon-only-size);
+  min-height: var(--dw-interaction-button-icon-only-size);
+  aspect-ratio: 1 / 1;
+  padding-inline: var(--dw-interaction-button-padding-inline);
+  padding-block: var(--dw-interaction-button-padding-block);
+  line-height: 0;
+}
+
+.dw-interaction-button--icon-only .dw-interaction-button__label {
+  display: none;
+}
+
+.dw-interaction-button--compact.dw-interaction-button--icon-only {
+  --dw-interaction-button-padding-inline: var(--dw-interaction-button-padding-block);
+  --dw-interaction-button-icon-only-size: calc(var(--dw-interaction-button-icon-size) + (2 * var(--dw-interaction-button-padding-block)));
+}
+
+.dw-interaction-button--primary {
+  --dw-interaction-button-bg: var(--buttons-state-fills-primary-regular);
+  --dw-interaction-button-color: var(--buttons-text-primary-regular);
+  --dw-interaction-button-rest-shadow: none;
+  --dw-interaction-button-hover-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+  --dw-interaction-button-active-bg: var(--buttons-state-fills-active);
+  --dw-interaction-button-active-color: var(--buttons-text-active);
+  --dw-interaction-button-focus-inner-shadow: none;
+}
+
+.dw-interaction-button--secondary {
+  --dw-interaction-button-bg: var(--buttons-state-fills-secondary-regular);
+  --dw-interaction-button-color: var(--buttons-text-secondary-regular);
+  --dw-interaction-button-rest-shadow: none;
+  --dw-interaction-button-hover-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+  --dw-interaction-button-active-bg: var(--buttons-state-fills-active);
+  --dw-interaction-button-active-color: var(--buttons-text-active);
+  --dw-interaction-button-focus-inner-shadow: none;
+}
+
+.dw-interaction-button--tertiary {
+  --dw-interaction-button-bg: var(--buttons-state-fills-tertiary-regular);
+  --dw-interaction-button-color: var(--buttons-text-tertiary-regular);
+  --dw-interaction-button-rest-shadow: inset 0 0 0 2px var(--buttons-state-borders-tertiary-regular);
+  --dw-interaction-button-hover-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+  --dw-interaction-button-active-bg: var(--buttons-state-fills-active);
+  --dw-interaction-button-active-color: var(--buttons-text-active);
+  --dw-interaction-button-focus-inner-shadow: inset 0 0 0 2px var(--buttons-state-borders-tertiary-regular);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-interaction-button:hover,
+  .dw-interaction-button.is-hover {
+    box-shadow: var(--dw-interaction-button-hover-shadow);
+  }
+}
+
+.dw-interaction-button:focus-visible,
+.dw-interaction-button.is-focus {
+  box-shadow:
+    0 0 0 2px var(--buttons-state-borders-focus),
+    var(--dw-interaction-button-focus-inner-shadow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-interaction-button:hover:focus-visible,
+  .dw-interaction-button.is-hover.is-focus {
+    box-shadow:
+      0 0 0 2px var(--buttons-state-borders-focus),
+      var(--dw-interaction-button-hover-shadow);
+  }
+}
+
+.dw-interaction-button:active,
+.dw-interaction-button.is-active {
+  background: var(--dw-interaction-button-active-bg);
+  color: var(--dw-interaction-button-active-color);
+  box-shadow: var(--dw-interaction-button-active-shadow);
+}
+
+.dw-interaction-button.is-inactive {
+  background: var(--dw-interaction-button-inactive-bg);
+  color: var(--dw-interaction-button-inactive-color);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.dw-icon {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+}
+
+.dw-icon,
+.dw-icon * {
+  fill: currentColor;
+}
+
+.dw-icon [fill="none"] {
+  fill: none;
+}

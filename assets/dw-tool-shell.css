@@ -1,0 +1,271 @@
+/*
+  dw-tool-shell.css
+  Shared data-tool shell.
+
+  Purpose:
+  - make all data tools consume dw-base.css for page grid, typography and theme colors
+  - normalize XS/SM/MD/LG/XL behavior
+  - keep project-specific visualization logic separate from shared layout/typography
+*/
+
+:root {
+  --dw-tool-main-padding-block-start: var(--dw-space-2, 2rem);
+  --dw-tool-main-padding-block-end: var(--dw-space-3, 3rem);
+  --dw-tool-hero-margin-block-end: var(--dw-space-2, 2rem);
+  --dw-tool-grid-row-gap: var(--dw-space-3, 3rem);
+  --dw-tool-grid-column-gap: 0px;
+  --dw-tool-main-inline-gutter: calc(100% * 2 / var(--dw-grid-columns, 30));
+  --dw-tool-left-grid-column: 1 / span 12;
+  --dw-tool-right-grid-column: 15 / -1;
+  --dw-tool-shell-surface: var(--dw-page-bg, var(--backgrounds-bg-1, #ffffff));
+  --dw-tool-shell-surface-dark: var(--backgrounds-bg-2, var(--colors-bluegrays-dark-blue-grey-01, #081336));
+}
+
+.dw-tool-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--dw-tool-shell-surface);
+  color: var(--dw-text-color, var(--fonts-prio-1, #000821));
+  font-family: var(--dw-font-family-text, var(--dw-font-family));
+  font-size: var(--dw-font-size-base, 1rem);
+  line-height: var(--dw-line-height-copy, 1.4);
+}
+
+:root[data-dw-theme="dark"] .dw-tool-shell,
+html.dark .dw-tool-shell,
+body.dark .dw-tool-shell {
+  background: var(--dw-tool-shell-surface-dark);
+  color: var(--dw-text-color, var(--fonts-prio-1, #ffffff));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-tool-shell {
+    background: var(--dw-tool-shell-surface-dark);
+    color: var(--dw-text-color, var(--fonts-prio-1, #ffffff));
+  }
+}
+
+.dw-tool-shell__main,
+.dw-wrapper.dw-tool-shell__main,
+.waffle-main.dw-tool-shell__main,
+.dw-treemap-content-wrapper.dw-tool-shell__main {
+  flex: 1 0 auto;
+  width: min(100%, var(--dw-layout-max-width, 1440px));
+  max-width: var(--dw-layout-max-width, 1440px);
+  margin-inline: auto;
+  padding-block: var(--dw-tool-main-padding-block-start) var(--dw-tool-main-padding-block-end);
+  padding-inline: var(--dw-tool-main-inline-gutter);
+}
+
+.dw-header-minimal__inner {
+  width: min(100%, var(--dw-layout-max-width, 1440px));
+  max-width: var(--dw-layout-max-width, 1440px);
+  margin-inline: auto;
+  padding-inline: var(--dw-tool-main-inline-gutter);
+}
+
+.dw-tool-hero,
+.step-header--upload.dw-tool-hero,
+.waffle-hero.dw-tool-hero {
+  width: 100%;
+  max-width: none;
+  margin-block: 0 var(--dw-tool-hero-margin-block-end);
+  text-align: start;
+}
+
+.dw-tool-title,
+.step-header--upload .dw-tool-title,
+.waffle-title.dw-tool-title,
+.dw-treemap-title.dw-tool-title {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--dw-space-0-5, 0.5rem);
+  color: var(--dw-heading-color, var(--font-colors-headline-detail-page-headline, var(--colors-brand-dw-dark-blue, #002186))) !important;
+  font-family: var(--dw-font-family-text, var(--dw-font-family));
+  font-size: var(--dw-font-size-plus-4, 2.0736rem) !important;
+  font-weight: var(--dw-font-weight-semibold, 600) !important;
+  line-height: var(--dw-line-height-tight, 1.1) !important;
+  letter-spacing: normal;
+  font-variation-settings: "ital" 0, "opsz" 20;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.dw-tool-intro,
+.step-header--upload .dw-tool-intro,
+.waffle-intro.dw-tool-intro,
+#upload-instructions.dw-tool-intro {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: var(--dw-text-primary, var(--fonts-prio-1, var(--colors-bluegrays-dark-blue-grey-02, #000821))) !important;
+  font-family: var(--dw-font-family-text, var(--dw-font-family));
+  font-size: var(--dw-font-size-plus-1, 1.2rem) !important;
+  font-weight: var(--dw-font-weight-medium, 500);
+  line-height: var(--dw-line-height-copy, 1.4);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+:root[data-dw-theme="dark"] :is(.dw-tool-title, .step-header--upload .dw-tool-title, .waffle-title.dw-tool-title, .dw-treemap-title.dw-tool-title),
+html.dark :is(.dw-tool-title, .step-header--upload .dw-tool-title, .waffle-title.dw-tool-title, .dw-treemap-title.dw-tool-title),
+body.dark :is(.dw-tool-title, .step-header--upload .dw-tool-title, .waffle-title.dw-tool-title, .dw-treemap-title.dw-tool-title) {
+  color: var(--font-colors-headline-detail-page-headline, var(--colors-brand-white, #ffffff)) !important;
+}
+
+:root[data-dw-theme="dark"] :is(.dw-tool-intro, .step-header--upload .dw-tool-intro, .waffle-intro.dw-tool-intro, #upload-instructions.dw-tool-intro),
+html.dark :is(.dw-tool-intro, .step-header--upload .dw-tool-intro, .waffle-intro.dw-tool-intro, #upload-instructions.dw-tool-intro),
+body.dark :is(.dw-tool-intro, .step-header--upload .dw-tool-intro, .waffle-intro.dw-tool-intro, #upload-instructions.dw-tool-intro) {
+  color: var(--dw-text-primary, var(--fonts-prio-1, var(--colors-brand-white, #ffffff))) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) :is(.dw-tool-title, .step-header--upload .dw-tool-title, .waffle-title.dw-tool-title, .dw-treemap-title.dw-tool-title) {
+    color: var(--font-colors-headline-detail-page-headline, var(--colors-brand-white, #ffffff)) !important;
+  }
+
+  :root:not([data-dw-theme="light"]) :is(.dw-tool-intro, .step-header--upload .dw-tool-intro, .waffle-intro.dw-tool-intro, #upload-instructions.dw-tool-intro) {
+    color: var(--dw-text-primary, var(--fonts-prio-1, var(--colors-brand-white, #ffffff))) !important;
+  }
+}
+
+.dw-tool-grid,
+.step-grid--upload.dw-tool-grid,
+.waffle-layout.dw-tool-grid,
+.dw-treemap-content-grid.dw-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--dw-grid-columns, 30), minmax(0, 1fr));
+  column-gap: var(--dw-tool-grid-column-gap);
+  row-gap: var(--dw-tool-grid-row-gap);
+  align-items: start;
+}
+
+.dw-tool-grid__left,
+.step-grid--upload .step-copy.dw-tool-grid__left,
+.waffle-form.dw-tool-grid__left,
+.dw-treemap-box-left.dw-tool-grid__left {
+  min-width: 0;
+  grid-column: var(--dw-tool-left-grid-column);
+}
+
+.dw-tool-grid__right,
+.step-grid--upload .upload-sample.dw-tool-grid__right,
+.waffle-output.dw-tool-grid__right,
+.dw-treemap-box-right.dw-tool-grid__right {
+  min-width: 0;
+  grid-column: var(--dw-tool-right-grid-column);
+}
+
+.dw-tool-grid__full {
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+.dw-tool-actions,
+.waffle-actions.dw-tool-actions,
+.waffle-download-action.dw-tool-actions,
+.dw-treemap-bottom-bar.dw-tool-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--dw-space-1, 1rem);
+}
+
+
+/* Hexbin upload step uses display: contents for the copy column.
+   Keep its child blocks on the same left-column contract as the shared shell,
+   so the preview column never touches the upload/copy column. */
+.step-grid--upload.dw-tool-grid .step-copy.dw-tool-grid__left > :is(.section-block--copy, .upload-panel, .upload-note) {
+  grid-column: var(--dw-tool-left-grid-column);
+}
+
+.step-grid--upload.dw-tool-grid .upload-sample.dw-tool-grid__right {
+  grid-column: var(--dw-tool-right-grid-column);
+}
+
+@media (min-width: 600px) {
+  :is(.dw-tool-actions, .waffle-actions, .waffle-download-action, .dw-treemap-bottom-bar) .dw-interaction-button--primary {
+    inline-size: fit-content !important;
+    width: fit-content !important;
+    max-inline-size: max-content !important;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 959.98px) {
+  .dw-tool-grid,
+  .step-grid--upload.dw-tool-grid,
+  .waffle-layout.dw-tool-grid,
+  .dw-treemap-content-grid.dw-tool-grid {
+    row-gap: var(--dw-space-2, 2rem);
+  }
+
+  .dw-tool-grid__left,
+  .dw-tool-grid__right,
+  .step-grid--upload .step-copy.dw-tool-grid__left,
+  .step-grid--upload .upload-sample.dw-tool-grid__right,
+  .step-grid--upload.dw-tool-grid .step-copy.dw-tool-grid__left > :is(.section-block--copy, .upload-panel, .upload-note),
+  .waffle-form.dw-tool-grid__left,
+  .waffle-output.dw-tool-grid__right,
+  .dw-treemap-box-left.dw-tool-grid__left,
+  .dw-treemap-box-right.dw-tool-grid__right {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .dw-tool-shell__main,
+  .dw-wrapper.dw-tool-shell__main,
+  .waffle-main.dw-tool-shell__main,
+  .dw-treemap-content-wrapper.dw-tool-shell__main,
+  .dw-header-minimal__inner {
+    padding-inline: var(--dw-space-1, 1rem);
+  }
+
+  :is(.dw-tool-actions, .waffle-actions, .waffle-download-action, .dw-treemap-bottom-bar) .dw-interaction-button--primary {
+    inline-size: 100% !important;
+    width: 100% !important;
+    max-inline-size: none !important;
+  }
+}
+
+/* XS-only full-width primary actions.
+   SM, MD, LG and XL must keep intrinsic button width. */
+@media (min-width: 600px) {
+  :is(.dw-tool-actions, .waffle-actions, .waffle-download-action, .dw-treemap-bottom-bar) {
+    inline-size: auto;
+  }
+
+  :is(.dw-tool-actions, .waffle-actions, .waffle-download-action, .dw-treemap-bottom-bar) > .dw-interaction-button--primary {
+    flex: 0 0 auto !important;
+    inline-size: auto !important;
+    width: auto !important;
+    max-inline-size: 100% !important;
+  }
+
+  .waffle-actions.dw-tool-actions {
+    justify-content: flex-start;
+  }
+
+  .waffle-actions.dw-tool-actions > #generate-button {
+    flex: 0 0 auto !important;
+    inline-size: auto !important;
+    width: auto !important;
+    max-inline-size: 100% !important;
+    align-self: auto;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .waffle-actions.dw-tool-actions {
+    inline-size: 100%;
+    width: 100%;
+  }
+
+  .waffle-actions.dw-tool-actions > #generate-button {
+    flex: 1 1 100% !important;
+    inline-size: 100% !important;
+    width: 100% !important;
+    max-inline-size: none !important;
+  }
+}

@@ -1,0 +1,272 @@
+/*
+  dw-input-text.css
+  Harmonisiertes Text-Input-Komponenten-CSS auf Basis der finalen DW-Tokens.
+*/
+
+.dw-input-text {
+  --dw-input-text-gap: 10px;
+  --dw-input-text-control-height: 48px;
+  --dw-input-text-padding-inline: 1rem;
+  --dw-input-text-border-width: 1px;
+
+  --dw-input-text-label-color: var(--font-colors-info-form-label-info);
+  --dw-input-text-label-size: var(--dw-font-size-base);
+  --dw-input-text-label-weight: var(--dw-font-weight-medium);
+
+  --dw-input-text-control-size: var(--dw-font-size-base);
+  --dw-input-text-control-weight: var(--dw-font-weight-regular);
+  --dw-input-text-help-weight: var(--dw-font-weight-regular);
+
+  --dw-input-text-help-color: var(--font-colors-info-help-info);
+  --dw-input-text-help-size: var(--dw-font-size-minus-1);
+
+  --dw-input-text-bg: var(--input-state-fills-default);
+  --dw-input-text-color: var(--font-colors-input-input-text);
+  --dw-input-text-placeholder-color: var(--font-colors-input-placeholder);
+
+  --dw-input-text-border-color: var(--input-state-borders-default-1);
+  --dw-input-text-hover-border-color: var(--input-state-borders-input-hover);
+  --dw-input-text-focus-border-color: var(--input-state-borders-focus);
+  --dw-input-text-active-border-color: var(--input-state-borders-active);
+  --dw-input-text-inactive-border-color: var(--input-state-borders-inactive);
+  --dw-input-text-inactive-bg: var(--input-state-fills-inactive);
+  --dw-input-text-inactive-color: var(--buttons-text-inactive, var(--fonts-prio-4));
+  --dw-input-text-error-border-color: var(--input-state-borders-error);
+  --dw-input-text-error-help-color: var(--font-colors-info-error-info);
+
+  --dw-input-text-selection-bg: var(--backgrounds-bg-3);
+
+  display: grid;
+  gap: var(--dw-input-text-gap);
+  min-inline-size: 0;
+}
+
+.dw-input-text__label {
+  margin: 0;
+  color: var(--dw-input-text-label-color);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-text-label-size);
+  font-weight: var(--dw-input-text-label-weight);
+  line-height: var(--dw-line-height-tight);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-text__control {
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--dw-input-text-control-height);
+  padding-inline: var(--dw-input-text-padding-inline);
+  border: var(--dw-input-text-border-width) solid var(--dw-input-text-border-color);
+  border-radius: var(--dw-radius-none);
+  background: var(--dw-input-text-bg);
+  color: var(--dw-input-text-color);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-text-control-size);
+  font-weight: var(--dw-input-text-control-weight);
+  line-height: 1;
+  font-variation-settings: "ital" 0, "opsz" 10;
+  outline: none;
+  box-shadow: none;
+  transition:
+    border-color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard),
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-text__control::placeholder {
+  color: var(--dw-input-text-placeholder-color);
+  opacity: 1;
+}
+
+.dw-input-text__control::selection {
+  background: var(--dw-input-text-selection-bg);
+  color: currentColor;
+}
+
+.dw-input-text__help {
+  margin: 0;
+  color: var(--dw-input-text-help-color);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-text-help-size);
+  font-weight: var(--dw-input-text-help-weight);
+  line-height: var(--dw-line-height-tight);
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-text__control:hover:not(:disabled),
+  .dw-input-text.is-hover:not(.is-inactive) .dw-input-text__control {
+    border-color: var(--dw-input-text-hover-border-color);
+    box-shadow: inset 0 0 0 1px var(--dw-input-text-hover-border-color);
+    background: var(--input-state-fills-input-hover);
+  }
+}
+
+.dw-input-text__control:focus-visible,
+.dw-input-text.is-focus .dw-input-text__control {
+  border-color: var(--dw-input-text-focus-border-color);
+  box-shadow: inset 0 0 0 1px var(--dw-input-text-focus-border-color);
+}
+
+.dw-input-text.is-active .dw-input-text__control {
+  border-color: var(--dw-input-text-active-border-color);
+  box-shadow: inset 0 0 0 1px var(--dw-input-text-active-border-color);
+}
+
+.dw-input-text.is-inactive .dw-input-text__control,
+.dw-input-text__control:disabled {
+  border-color: var(--dw-input-text-inactive-border-color);
+  background: var(--dw-input-text-inactive-bg);
+  color: var(--dw-input-text-inactive-color);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.dw-input-text.is-inactive .dw-input-text__control::placeholder,
+.dw-input-text__control:disabled::placeholder {
+  color: var(--dw-input-text-inactive-color);
+}
+
+.dw-input-text.is-error .dw-input-text__control {
+  border-color: var(--dw-input-text-error-border-color);
+  box-shadow: inset 0 0 0 1px var(--dw-input-text-error-border-color);
+}
+
+.dw-input-text.is-error .dw-input-text__help {
+  color: var(--dw-input-text-error-help-color);
+}
+
+
+/* RTL */
+.dw-input-text__label,
+.dw-input-text__help,
+.dw-input-text__control {
+  text-align: start;
+}
+
+[dir="rtl"] .dw-input-text {
+  direction: rtl;
+}
+
+
+/* Dark-Mode Hover: dunkler Hintergrund, Text bleibt weiß */
+[data-dw-theme="dark"] .dw-input-text__control:hover:not(:disabled),
+[data-dw-theme="dark"] .dw-input-text.is-hover .dw-input-text__control,
+.Value.dark .dw-input-text__control:hover:not(:disabled),
+.Value.dark .dw-input-text.is-hover:not(.is-inactive) .dw-input-text__control {
+  color: var(--colors-brand-white, #fff);
+  -webkit-text-fill-color: var(--colors-brand-white, #fff);
+}
+
+[data-dw-theme="dark"] .dw-input-text__control:hover:not(:disabled)::placeholder,
+[data-dw-theme="dark"] .dw-input-text.is-hover .dw-input-text__control::placeholder,
+.Value.dark .dw-input-text__control:hover:not(:disabled)::placeholder,
+.Value.dark .dw-input-text.is-hover:not(.is-inactive) .dw-input-text__control::placeholder {
+  color: var(--colors-bluegrays-blue-grey-04, #5c718a);
+}
+
+
+/* ==========================================================================
+   Automatischer Dark-Mode über prefers-color-scheme
+   ========================================================================== */
+
+.dw-input-text {
+  --dw-input-text-hover-text-color: var(--dw-input-text-color);
+  --dw-input-text-hover-placeholder-color: var(--dw-input-text-placeholder-color);
+}
+
+.dw-input-text__control:hover:not(:disabled),
+.dw-input-text.is-hover:not(.is-inactive) .dw-input-text__control {
+  color: var(--dw-input-text-hover-text-color);
+  -webkit-text-fill-color: var(--dw-input-text-hover-text-color);
+}
+
+.dw-input-text__control:hover:not(:disabled)::placeholder,
+.dw-input-text.is-hover:not(.is-inactive) .dw-input-text__control::placeholder {
+  color: var(--dw-input-text-hover-placeholder-color);
+}
+
+:root[data-dw-theme="dark"] .dw-input-text {
+  --dw-input-text-hover-text-color: var(--colors-brand-white, #fff);
+  --dw-input-text-hover-placeholder-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-text,
+  :root[data-dw-theme="auto"] .dw-input-text {
+    --dw-input-text-hover-text-color: var(--colors-brand-white, #fff);
+    --dw-input-text-hover-placeholder-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  }
+}
+
+
+/* Inactive muss unabhängig von Hover-/Preview-State die Inactive-Textfarbe behalten. */
+.dw-input-text.is-inactive .dw-input-text__control,
+.dw-input-text__control:disabled {
+  color: var(--dw-input-text-inactive-color);
+  -webkit-text-fill-color: var(--dw-input-text-inactive-color);
+}
+
+.dw-input-text.is-inactive .dw-input-text__control::placeholder,
+.dw-input-text__control:disabled::placeholder {
+  color: var(--dw-input-text-inactive-color);
+  -webkit-text-fill-color: var(--dw-input-text-inactive-color);
+}
+
+/* ==========================================================================
+   Inactive-State Fix
+   --------------------------------------------------------------------------
+   Inactive darf nicht von Hover-/Auto-Dark-Textfarben erben.
+   Label, Control, Placeholder und HelpInfo verwenden dieselbe Inactive-Textfarbe.
+   Im Dark Mode wird die Fläche explizit dunkel gehalten, damit Text und Fläche
+   nicht in denselben Blauton fallen.
+   ========================================================================== */
+
+.dw-input-text {
+  --dw-input-text-inactive-color: var(--buttons-text-inactive, var(--colors-bluegrays-blue-grey-03, #99b5c9));
+  --dw-input-text-inactive-placeholder-color: var(--dw-input-text-inactive-color);
+}
+
+:root[data-dw-theme="dark"] .dw-input-text,
+[data-dw-theme="dark"] .dw-input-text,
+.dark .dw-input-text,
+.Value.dark .dw-input-text {
+  --dw-input-text-inactive-bg: var(--colors-bluegrays-dark-blue-grey-01, #081336);
+  --dw-input-text-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-input-text-inactive-placeholder-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+  --dw-input-text-inactive-border-color: var(--colors-bluegrays-blue-grey-04, #5c718a);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme="light"]) .dw-input-text,
+  :root[data-dw-theme="auto"] .dw-input-text {
+    --dw-input-text-inactive-bg: var(--colors-bluegrays-dark-blue-grey-01, #081336);
+    --dw-input-text-inactive-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+    --dw-input-text-inactive-placeholder-color: var(--colors-bluegrays-blue-grey-03, #99b5c9);
+    --dw-input-text-inactive-border-color: var(--colors-bluegrays-blue-grey-04, #5c718a);
+  }
+}
+
+.dw-input-text.is-inactive .dw-input-text__label,
+.dw-input-text.is-inactive .dw-input-text__help {
+  color: var(--dw-input-text-inactive-color);
+}
+
+.dw-input-text.is-inactive .dw-input-text__control,
+.dw-input-text__control:disabled {
+  border-color: var(--dw-input-text-inactive-border-color);
+  background: var(--dw-input-text-inactive-bg);
+  color: var(--dw-input-text-inactive-color);
+  -webkit-text-fill-color: var(--dw-input-text-inactive-color);
+  box-shadow: none;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.dw-input-text.is-inactive .dw-input-text__control::placeholder,
+.dw-input-text__control:disabled::placeholder {
+  color: var(--dw-input-text-inactive-placeholder-color);
+  -webkit-text-fill-color: var(--dw-input-text-inactive-placeholder-color);
+  opacity: 1;
+}

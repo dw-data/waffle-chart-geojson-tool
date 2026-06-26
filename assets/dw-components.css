@@ -1,0 +1,516 @@
+/* dw-components.css */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DW Minimal Header                                                           */
+/* -------------------------------------------------------------------------- */
+
+.dw-header-minimal,
+.dw-header-minimal--light {
+  background: var(--colors-brand-dw-light-blue);
+  color: var(--colors-brand-white);
+}
+
+.dw-header-minimal__inner {
+  width: 100%;
+  max-width: var(--dw-layout-max-width);
+  min-height: 4.75rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3.5vw, 3rem);
+  display: flex;
+  align-items: center;
+}
+
+.dw-header-minimal__brand {
+  display: inline-flex;
+  align-items: center;
+  width: 4.25rem;
+  height: auto;
+  color: var(--colors-brand-white);
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.dw-header-minimal__label {
+  display: none;
+}
+
+.dw-header-minimal__logo {
+  display: block;
+  width: 4.25rem;
+  height: auto;
+  overflow: visible;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DW Minimal Footer                                                           */
+/* -------------------------------------------------------------------------- */
+
+.dw-footer-minimal {
+  background: var(--colors-bluegrays-dark-blue-grey-02);
+  color: var(--colors-brand-white);
+}
+
+.dw-footer-minimal__inner {
+  width: 100%;
+  max-width: var(--dw-layout-max-width);
+  min-height: 5.75rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1.625rem, 6.5vw, 5.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: var(--dw-font-size-minus-1);
+  line-height: 1.35;
+}
+
+.dw-footer-minimal__copyright,
+.dw-footer-minimal__separator {
+  color: var(--colors-bluegrays-blue-grey-03);
+  font-style: normal;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-footer-minimal__copyright {
+  font-variation-settings: "ital" 1, "opsz" 10;
+}
+
+.dw-footer-minimal__link,
+.dw-footer-minimal__link:visited {
+  color: var(--colors-brand-white);
+  font-style: normal;
+  font-weight: var(--dw-font-weight-semibold);
+  font-variation-settings: "ital" 0, "opsz" 10;
+  text-decoration: none;
+}
+
+.dw-footer-minimal__link:hover,
+.dw-footer-minimal__link:focus-visible {
+  color: var(--colors-brand-white);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DW Input Text + Select                                                      */
+/* -------------------------------------------------------------------------- */
+
+.dw-input-label,
+.dw-fieldset__legend {
+  display: block;
+  margin: 0 0 0.625rem;
+  color: var(--font-colors-info-form-label-info);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-form-label-size);
+  font-weight: var(--dw-type-form-label-weight);
+  line-height: var(--dw-type-form-label-line-height);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-text,
+.dw-input-select {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid var(--input-state-borders-default-1);
+  border-radius: var(--dw-radius-none);
+  background-color: var(--input-state-fills-default);
+  color: var(--font-colors-input-input-text);
+  padding: 0.625rem 1rem;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-input-size);
+  font-weight: var(--dw-type-input-weight);
+  line-height: var(--dw-type-input-line-height);
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+.dw-input-text {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.dw-input-text::placeholder,
+.dw-input-select::placeholder {
+  color: var(--font-colors-input-placeholder);
+}
+
+.dw-input-text:hover,
+.dw-input-select:hover {
+  border-color: var(--input-state-borders-input-hover);
+  background-color: var(--input-state-fills-input-hover);
+}
+
+.dw-input-text:focus-visible,
+.dw-input-select:focus-visible {
+  outline: 2px solid var(--input-state-borders-focus);
+  outline-offset: 2px;
+  border-color: var(--input-state-borders-focus);
+}
+
+.dw-input-select {
+  --dw-input-select-chevron: url("data:image/svg+xml,%3Csvg width='18' height='12' viewBox='0 0 18 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.4 1.4 9 9l7.6-7.6' fill='none' stroke='%23002186' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  appearance: none;
+  padding-right: 3rem;
+  background-image: var(--dw-input-select-chevron);
+  background-repeat: no-repeat;
+  background-position: right 1.05rem center;
+  background-size: 1.125rem 0.75rem;
+}
+
+.dw-input-select,
+.dw-input-select:hover,
+.dw-input-select:focus-visible {
+  background-image: var(--dw-input-select-chevron);
+  background-repeat: no-repeat;
+  background-position: right 1.05rem center;
+  background-size: 1.125rem 0.75rem;
+}
+
+.dw-input-select option {
+  background-color: var(--dw-surface-bg);
+  color: var(--dw-text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme='light']) .dw-input-select {
+    --dw-input-select-chevron: url("data:image/svg+xml,%3Csvg width='18' height='12' viewBox='0 0 18 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.4 1.4 9 9l7.6-7.6' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+}
+
+:root[data-dw-theme='dark'] .dw-input-select,
+.dark .dw-input-select {
+  --dw-input-select-chevron: url("data:image/svg+xml,%3Csvg width='18' height='12' viewBox='0 0 18 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.4 1.4 9 9l7.6-7.6' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* -------------------------------------------------------------------------- */
+/* DW Interaction Button                                                       */
+/* -------------------------------------------------------------------------- */
+
+.dw-interaction-button {
+  min-height: 2.875rem;
+  border: 0;
+  border-radius: var(--dw-radius-button);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.625rem 1.125rem;
+  color: var(--buttons-text-secondary-regular);
+  background-color: var(--buttons-state-fills-tertiary-regular);
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-type-button-size);
+  font-weight: var(--dw-type-button-weight);
+  line-height: var(--dw-type-button-line-height);
+  font-variation-settings: "ital" 0, "opsz" 10;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard),
+    outline-color var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-interaction-button svg {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+}
+
+.dw-interaction-button--primary,
+.dw-interaction-button--primary:visited {
+  background-color: var(--buttons-state-fills-primary-regular);
+  color: var(--buttons-text-primary-regular);
+}
+
+.dw-interaction-button--secondary,
+.dw-interaction-button--secondary:visited {
+  background-color: var(--buttons-state-fills-secondary-regular);
+  color: var(--buttons-text-secondary-regular);
+}
+
+.dw-interaction-button--tertiary,
+.dw-interaction-button--tertiary:visited {
+  background-color: var(--buttons-state-fills-tertiary-regular);
+  color: var(--buttons-text-tertiary-regular);
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-tertiary-regular);
+}
+
+.dw-interaction-button:hover {
+  text-decoration: none;
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+}
+
+.dw-interaction-button--primary:hover {
+  background-color: var(--buttons-state-fills-primary-regular);
+  color: var(--buttons-text-primary-regular);
+}
+
+.dw-interaction-button--secondary:hover {
+  background-color: var(--buttons-state-fills-secondary-regular);
+  color: var(--buttons-text-secondary-regular);
+}
+
+.dw-interaction-button--tertiary:hover {
+  background-color: var(--buttons-state-fills-tertiary-regular);
+  color: var(--buttons-text-tertiary-regular);
+}
+
+.dw-interaction-button:focus-visible {
+  outline: 2px solid var(--buttons-state-borders-focus);
+  outline-offset: 3px;
+}
+
+.dw-interaction-button--primary:focus-visible {
+  background-color: var(--buttons-state-fills-primary-regular);
+  color: var(--buttons-text-primary-focus);
+}
+
+.dw-interaction-button--secondary:focus-visible {
+  background-color: var(--buttons-state-fills-secondary-regular);
+  color: var(--buttons-text-secondary-focus);
+}
+
+.dw-interaction-button--tertiary:focus-visible {
+  background-color: var(--buttons-state-fills-tertiary-regular);
+  color: var(--buttons-text-tertiary-focus);
+}
+
+.dw-interaction-button:active {
+  background-color: var(--buttons-state-fills-active);
+  color: var(--buttons-text-active);
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-active);
+}
+
+.dw-interaction-button--primary:active,
+.dw-interaction-button--secondary:active,
+.dw-interaction-button--tertiary:active {
+  background-color: var(--buttons-state-fills-active);
+  color: var(--buttons-text-active);
+}
+
+.dw-interaction-button:disabled,
+.dw-interaction-button[aria-disabled='true'] {
+  background-color: var(--buttons-state-fills-inactive);
+  color: var(--buttons-text-inactive);
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-inactive);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dw-theme='light']) .dw-interaction-button--primary:hover {
+    background-color: var(--buttons-state-fills-primary-regular);
+    color: var(--buttons-text-primary-regular);
+    box-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+  }
+
+  :root:not([data-dw-theme='light']) .dw-interaction-button--primary:active {
+    background-color: var(--buttons-state-fills-active);
+    color: var(--buttons-text-active);
+    box-shadow: inset 0 0 0 2px var(--buttons-state-borders-active);
+  }
+}
+
+:root[data-dw-theme='dark'] .dw-interaction-button--primary:hover,
+.dark .dw-interaction-button--primary:hover {
+  background-color: var(--buttons-state-fills-primary-regular);
+  color: var(--buttons-text-primary-regular);
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-hover);
+}
+
+:root[data-dw-theme='dark'] .dw-interaction-button--primary:active,
+.dark .dw-interaction-button--primary:active {
+  background-color: var(--buttons-state-fills-active);
+  color: var(--buttons-text-active);
+  box-shadow: inset 0 0 0 2px var(--buttons-state-borders-active);
+}
+
+/* -------------------------------------------------------------------------- */
+/* DW Choice Chips                                                             */
+/* -------------------------------------------------------------------------- */
+
+.waffle-choice-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.dw-input-choice-chips {
+  --dw-input-choice-chips-gap: 8px;
+  --dw-input-choice-chips-padding-block: 10px;
+  --dw-input-choice-chips-padding-inline: 1rem;
+  --dw-input-choice-chips-border-width: 2px;
+  --dw-input-choice-chips-radius: 1.5rem;
+
+  --dw-input-choice-chips-font-size: var(--dw-font-size-base);
+  --dw-input-choice-chips-font-weight: var(--dw-font-weight-semibold);
+  --dw-input-choice-chips-line-height: 1;
+
+  --dw-input-choice-chips-bg: var(--choice-chips-state-fills-default);
+  --dw-input-choice-chips-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-border-color: var(--choice-chips-state-borders-default);
+
+  --dw-input-choice-chips-hover-bg: var(--choice-chips-state-fills-hover);
+  --dw-input-choice-chips-hover-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-hover-border-color: var(--choice-chips-state-borders-hover);
+
+  --dw-input-choice-chips-focus-bg: var(--choice-chips-state-fills-focus);
+  --dw-input-choice-chips-focus-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-focus-border-color: var(--choice-chips-state-borders-focus);
+
+  --dw-input-choice-chips-active-bg: var(--choice-chips-state-fills-active);
+  --dw-input-choice-chips-active-color: var(--choice-chips-text-active);
+  --dw-input-choice-chips-active-border-color: var(--choice-chips-state-fills-active);
+
+  --dw-input-choice-chips-inactive-bg: var(--choice-chips-state-fills-inactive);
+  --dw-input-choice-chips-inactive-color: var(--choice-chips-text-inactive);
+  --dw-input-choice-chips-inactive-border-color: var(--choice-chips-state-borders-default);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dw-input-choice-chips-gap);
+  width: 100%;
+}
+
+.dw-input-choice-chips__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  padding-block: var(--dw-input-choice-chips-padding-block);
+  padding-inline: var(--dw-input-choice-chips-padding-inline);
+  border: var(--dw-input-choice-chips-border-width) solid var(--dw-input-choice-chips-border-color);
+  border-radius: var(--dw-input-choice-chips-radius);
+  background: var(--dw-input-choice-chips-bg);
+  color: var(--dw-input-choice-chips-color);
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background-color var(--dw-duration-fast) var(--dw-ease-standard),
+    color var(--dw-duration-fast) var(--dw-ease-standard),
+    border-color var(--dw-duration-fast) var(--dw-ease-standard),
+    box-shadow var(--dw-duration-fast) var(--dw-ease-standard);
+}
+
+.dw-input-choice-chips__label {
+  display: block;
+  min-inline-size: 0;
+  font-family: var(--dw-font-family-text);
+  font-size: var(--dw-input-choice-chips-font-size);
+  font-weight: var(--dw-input-choice-chips-font-weight);
+  line-height: var(--dw-input-choice-chips-line-height);
+  letter-spacing: normal;
+  white-space: nowrap;
+  color: inherit;
+  font-variation-settings: "ital" 0, "opsz" 10;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-choice-chips__chip:hover,
+  .dw-input-choice-chips__chip.is-hover {
+    background: var(--dw-input-choice-chips-hover-bg);
+    color: var(--dw-input-choice-chips-hover-color);
+    border-color: var(--dw-input-choice-chips-hover-border-color);
+  }
+}
+
+.dw-input-choice-chips__chip:focus-visible,
+.dw-input-choice-chips__chip.is-focus {
+  background: var(--dw-input-choice-chips-focus-bg);
+  color: var(--dw-input-choice-chips-focus-color);
+  border-color: var(--dw-input-choice-chips-focus-border-color);
+  box-shadow: none;
+}
+
+.dw-input-choice-chips__chip.is-active,
+.dw-input-choice-chips__chip[aria-checked='true'] {
+  background: var(--dw-input-choice-chips-active-bg);
+  color: var(--dw-input-choice-chips-active-color);
+  border-color: var(--dw-input-choice-chips-active-border-color);
+}
+
+.dw-input-choice-chips__chip.is-active:focus-visible,
+.dw-input-choice-chips__chip[aria-checked='true']:focus-visible {
+  border-color: var(--dw-input-choice-chips-focus-border-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-choice-chips__chip.is-active:hover,
+  .dw-input-choice-chips__chip[aria-checked='true']:hover {
+    background: var(--dw-input-choice-chips-active-bg);
+    color: var(--dw-input-choice-chips-active-color);
+    border-color: var(--dw-input-choice-chips-active-border-color);
+  }
+
+  .dw-input-choice-chips__chip.is-active:focus-visible:hover,
+  .dw-input-choice-chips__chip[aria-checked='true']:focus-visible:hover {
+    border-color: var(--dw-input-choice-chips-focus-border-color);
+  }
+}
+
+.dw-input-choice-chips__chip.is-inactive,
+.dw-input-choice-chips__chip.is-disabled,
+.dw-input-choice-chips__chip[aria-disabled='true'],
+.dw-input-choice-chips__chip:disabled {
+  background: var(--dw-input-choice-chips-inactive-bg);
+  color: var(--dw-input-choice-chips-inactive-color);
+  border-color: var(--dw-input-choice-chips-inactive-border-color);
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.dw-input-choice-chips--compact {
+  --dw-input-choice-chips-gap: 6px;
+  --dw-input-choice-chips-padding-block: 8px;
+  --dw-input-choice-chips-padding-inline: 12px;
+  --dw-input-choice-chips-font-size: var(--dw-font-size-minus-1);
+}
+
+/* Pass 12 typography corrections */
+.dw-input-label,
+.dw-fieldset__legend {
+  font-size: var(--dw-font-size-base);
+}
+
+
+/* Pass 15 v30 basefont/content wrapper guard */
+.dw-input-choice-chips {
+  --dw-input-choice-chips-bg: var(--choice-chips-state-fills-default);
+  --dw-input-choice-chips-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-border-color: var(--choice-chips-state-borders-default);
+  --dw-input-choice-chips-hover-bg: var(--choice-chips-state-fills-hover);
+  --dw-input-choice-chips-hover-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-hover-border-color: var(--choice-chips-state-borders-hover);
+  --dw-input-choice-chips-focus-bg: var(--choice-chips-state-fills-focus);
+  --dw-input-choice-chips-focus-color: var(--choice-chips-text-default);
+  --dw-input-choice-chips-focus-border-color: var(--choice-chips-state-borders-focus);
+  --dw-input-choice-chips-active-bg: var(--choice-chips-state-fills-active);
+  --dw-input-choice-chips-active-color: var(--choice-chips-text-active);
+  --dw-input-choice-chips-active-border-color: var(--choice-chips-state-fills-active);
+}
+
+.dw-input-choice-chips__chip:focus-visible,
+.dw-input-choice-chips__chip[aria-checked='true']:focus-visible {
+  border-color: var(--choice-chips-state-borders-focus);
+}
